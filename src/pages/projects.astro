@@ -11,7 +11,7 @@ const projects = [
     year: '2025',
     desc: 'A hands-on robotics showcase built for Engineering Club Day, featuring interactive bots and demonstrations that introduce students to mechanical, electrical, and software systems.',
     tech: ['Rapid Prototyping', 'Embedded Systems', 'Outreach', 'CAD'],
-    image: `${base}images/2025%20Engineering%20Club%20Day/WhiteBot.png`,
+    image: `${base}images/2025%20Engineering%20Club%20Day/IMG_0448.png`,
   },
   {
     title: 'Drone Platform',
@@ -20,7 +20,7 @@ const projects = [
     year: '2025',
     desc: 'A custom aerial platform for flight testing, visual sensing, and autonomous navigation experiments. The project focuses on reliable hardware integration and flight stability.',
     tech: ['ROS2', 'Computer Vision', 'Python', 'Flight Control'],
-    image: `${base}images/Drone/aerial.png`,
+    image: `${base}images/Drone/image.png`,
   },
   {
     title: 'Mini Bot Line Follower',
@@ -29,7 +29,7 @@ const projects = [
     year: '2025',
     desc: 'A beginner-friendly line-following robot used to teach sensor calibration, control loops, and embedded programming in a compact build.',
     tech: ['Arduino', 'PID', 'IR Sensors', 'C++'],
-    image: `${base}images/Mini%20bot/IMG_0393.png`,
+    image: `${base}images/Mini%20bot/IMG_0396.png`,
   },
   {
     title: 'Quadruped Robot',
@@ -177,6 +177,11 @@ const projects = [
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.project-row:nth-child(3) .project-img {
+  object-position: center 35%;
+  transform: scale(1.08);
 }
 
 @media (max-width: 700px) {
