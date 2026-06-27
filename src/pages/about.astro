@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About" description="Learn about the UC Davis Robotics Club — our mission, history, and values.">
+
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-label">Who we are</p>
+      <h1 class="section-title" style="font-size: clamp(2.5rem,5vw,4rem);">Built by students.<br/>Driven by curiosity.</h1>
+      <p class="section-body">
+        The UC Davis Robotics Club is a student organization dedicated to hands-on robotics
+        engineering — from competition rovers to custom manipulators. We believe the best
+        education happens when you're elbow-deep in a prototype at midnight.
+      </p>
+    </div>
+  </section>
+
+  <!-- Banner image -->
+  <div class="container">
+    <div class="img-placeholder about-banner">[ wide team / lab photo ]</div>
+  </div>
+
+  <!-- Mission -->
+  <section class="section">
+    <div class="container about-grid">
+      <div>
+        <p class="section-label">Our mission</p>
+        <div class="gold-rule"></div>
+        <h2 class="section-title" style="font-size:2rem;">Why we exist</h2>
+        <p class="section-body">
+          We exist to give UC Davis students a space to learn, build, and compete in robotics
+          outside the classroom. Every member — regardless of major or experience level — can
+          contribute to a real, working system.
+        </p>
+        <p class="section-body" style="margin-top:1rem;">
+          We run hands-on workshops, field competition teams, and collaborate with faculty on
+          research-adjacent projects. Membership is free and open to all students.
+        </p>
+      </div>
+      <div class="img-placeholder" style="height:360px; border-radius:8px;">[ mission photo ]</div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section" style="background:var(--surface); border-block: 1px solid var(--border);">
+    <div class="container">
+      <p class="section-label">What we stand for</p>
+      <h2 class="section-title">Our values</h2>
+      <div class="values-grid">
+        {[
+          { icon: '⚙️', title: 'Build to learn', body: 'Real learning happens when you ship something. We prioritize hands-on projects over passive instruction.' },
+          { icon: '🤝', title: 'Inclusive by default', body: 'No experience required. We pair veterans with newcomers so knowledge flows freely across the club.' },
+          { icon: '🏆', title: 'Compete seriously', body: 'We enter real competitions and treat them as high-stakes learning opportunities, not just field trips.' },
+          { icon: '🔬', title: 'Research-minded', body: 'We tackle problems that don\'t have easy answers, and document everything so others can build on our work.' },
+        ].map(v => (
+          <div class="value-card">
+            <span class="value-icon">{v.icon}</span>
+            <h3 class="value-title">{v.title}</h3>
+            <p class="value-body">{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- History timeline -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">How we got here</p>
+      <h2 class="section-title">Club history</h2>
+      <div class="timeline">
+        {[
+          { year: '2018', event: 'Club founded by a group of MAE students with a shared dream of competing in NASA RMC.' },
+          { year: '2019', event: 'First competition entry — Rover prototype placed in the top 20 nationally.' },
+          { year: '2021', event: 'Expanded into aerial robotics; drone team formed during remote learning.' },
+          { year: '2022', event: 'Opened our permanent lab space in Kemper Hall.' },
+          { year: '2024', event: 'Launched community outreach workshops; 200+ K-12 students taught.' },
+        ].map(t => (
+          <div class="timeline-item">
+            <span class="timeline-year">{t.year}</span>
+            <div class="timeline-dot"></div>
+            <p class="timeline-event">{t.event}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+.about-banner {
+  height: 420px;
+  border-radius: 8px;
+  margin-bottom: 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.value-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.75rem;
+}
+
+.value-icon { font-size: 1.75rem; display: block; margin-bottom: 1rem; }
+
+.value-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--text);
+}
+
+.value-body { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+/* Timeline */
+.timeline {
+  margin-top: 2.5rem;
+  border-left: 2px solid var(--border);
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.timeline-item { position: relative; }
+
+.timeline-dot {
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: absolute;
+  left: calc(-2rem - 4px);
+  top: 6px;
+}
+
+.timeline-year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.timeline-event { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; }
+
+@media (max-width: 700px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-grid > div:last-child { display: none; }
+}
+</style>

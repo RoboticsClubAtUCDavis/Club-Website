@@ -1,0 +1,177 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Join the Club" description="Apply to join the UC Davis Robotics Club. All majors and experience levels welcome.">
+
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-label">Membership</p>
+      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Join the Club</h1>
+      <p class="section-body">
+        We recruit at the beginning of each quarter. No prior robotics experience needed —
+        just bring enthusiasm and a willingness to learn.
+      </p>
+    </div>
+  </section>
+
+  <!-- How to join steps -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">The process</p>
+      <h2 class="section-title">How it works</h2>
+      <div class="steps">
+        {[
+          { step: '1', title: 'Fill out the interest form', body: 'Submit the form below so we can learn about you and your interests.' },
+          { step: '2', title: 'Attend a general meeting', body: 'We hold GMs at the start of each quarter. Come meet the team and see current projects.' },
+          { step: '3', title: 'Join a subteam', body: 'Pick an area that excites you — mechanical, electrical, software, or outreach — and get building.' },
+        ].map(s => (
+          <div class="step-card">
+            <span class="step-num">{s.step}</span>
+            <div>
+              <h3 class="step-title">{s.title}</h3>
+              <p class="step-body">{s.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Subteams -->
+  <section class="section" style="background:var(--surface); border-block:1px solid var(--border);">
+    <div class="container">
+      <p class="section-label">Find your fit</p>
+      <h2 class="section-title">Subteams</h2>
+      <div class="subteams-grid">
+        {[
+          { name: 'Mechanical', icon: '🔩', desc: 'CAD, fabrication, structural design. SolidWorks and machine shop experience a plus.' },
+          { name: 'Electrical', icon: '⚡', desc: 'PCB design, motor controllers, embedded systems, and power management.' },
+          { name: 'Software',   icon: '💻', desc: 'ROS2, computer vision, path planning, autonomy. Python and C++ used heavily.' },
+          { name: 'Outreach',  icon: '🌱', desc: 'K-12 workshops, recruitment, social media, and community partnerships.' },
+        ].map(t => (
+          <div class="subteam-card">
+            <span class="subteam-icon">{t.icon}</span>
+            <h3 class="subteam-name">{t.name}</h3>
+            <p class="subteam-desc">{t.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Interest form -->
+  <section class="section">
+    <div class="container form-wrap">
+      <p class="section-label">Apply</p>
+      <h2 class="section-title">Interest Form</h2>
+      <p class="section-body" style="margin-bottom:2.5rem;">
+        Fill this out and we'll reach out before the next general meeting.
+      </p>
+
+      <!-- Replace this with your Google Form embed or a Netlify/Formspree form -->
+      <div class="form-note">
+        <p>
+          📋 Embed your Google Form or Formspree form here. Replace this block in
+          <code>src/pages/join.astro</code> with an <code>&lt;iframe&gt;</code> or form HTML.
+        </p>
+        <a
+          href="https://forms.google.com"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-primary"
+          style="margin-top:1.25rem;"
+        >Open Interest Form →</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  max-width: 680px;
+}
+
+.step-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.step-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+  min-width: 2rem;
+}
+
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.step-body { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+
+.subteams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.subteam-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.75rem;
+  transition: border-color 0.2s;
+}
+
+.subteam-card:hover { border-color: var(--gold-dim); }
+
+.subteam-icon { font-size: 1.75rem; display: block; margin-bottom: 1rem; }
+
+.subteam-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--text);
+}
+
+.subteam-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+.form-wrap { max-width: 680px; }
+
+.form-note {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-note p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.65; }
+.form-note code {
+  font-family: var(--font-mono);
+  background: var(--surface-2);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: var(--gold);
+}
+</style>

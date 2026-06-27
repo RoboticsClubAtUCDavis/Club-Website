@@ -1,0 +1,173 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Replace src values with real paths like /images/photo1.jpg
+const photos = [
+  { src: '', alt: 'Rover testing in the field', category: 'Competition', size: 'large' },
+  { src: '', alt: 'Team working in the lab', category: 'Lab Life', size: 'small' },
+  { src: '', alt: 'Soldering session', category: 'Workshops', size: 'small' },
+  { src: '', alt: 'Drone test flight', category: 'Projects', size: 'large' },
+  { src: '', alt: 'PCB assembly', category: 'Electrical', size: 'small' },
+  { src: '', alt: 'Team photo at competition', category: 'Competition', size: 'small' },
+  { src: '', alt: 'Robot arm demo', category: 'Projects', size: 'small' },
+  { src: '', alt: 'Outreach workshop with kids', category: 'Outreach', size: 'large' },
+  { src: '', alt: 'Night in the lab', category: 'Lab Life', size: 'small' },
+  { src: '', alt: 'Competition award ceremony', category: 'Competition', size: 'small' },
+  { src: '', alt: 'Mechanical assembly session', category: 'Lab Life', size: 'small' },
+  { src: '', alt: 'Software sprint session', category: 'Software', size: 'small' },
+];
+
+const categories = ['All', ...new Set(photos.map(p => p.category))];
+---
+
+<Layout title="Gallery" description="Photos from UC Davis Robotics Club — lab work, competitions, and workshops.">
+
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-label">In pictures</p>
+      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Gallery</h1>
+      <p class="section-body">A look at what goes on in the lab, at competitions, and in the community.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Category filter -->
+      <div class="filter-bar" id="filterBar">
+        {categories.map(c => (
+          <button class:list={['filter-btn', c === 'All' ? 'active' : '']} data-cat={c}>
+            {c}
+          </button>
+        ))}
+      </div>
+
+      <!-- Masonry-style grid -->
+      <div class="gallery-grid" id="galleryGrid">
+        {photos.map(p => (
+          <div class="gallery-item" data-cat={p.category} data-size={p.size}>
+            <div class="img-placeholder gallery-img">[ {p.alt} ]</div>
+            <div class="gallery-overlay">
+              <p class="gallery-caption">{p.alt}</p>
+              <span class="gallery-cat">{p.category}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Submit photo CTA -->
+  <section class="section" style="background:var(--surface);border-top:1px solid var(--border);">
+    <div class="container" style="max-width:580px; text-align:center; margin-inline:auto;">
+      <p class="section-label">Contribute</p>
+      <h2 class="section-title" style="font-size:2rem;">Got a photo to share?</h2>
+      <p class="section-body" style="margin-inline:auto; margin-bottom:2rem;">
+        If you attended an event or captured something cool in the lab, send it our way.
+      </p>
+      <a href="/contact" class="btn btn-outline">Submit a Photo</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4em 1em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+}
+
+/* CSS columns masonry */
+.gallery-grid {
+  columns: 3;
+  column-gap: 12px;
+}
+
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.gallery-item[data-size="large"] .gallery-img { height: 340px; }
+.gallery-item[data-size="small"] .gallery-img { height: 200px; }
+
+.gallery-img { width: 100%; border-radius: 6px; }
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+.gallery-caption {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+
+.gallery-cat {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* hidden by filter */
+.gallery-item.hidden { display: none; }
+
+@media (max-width: 860px) { .gallery-grid { columns: 2; } }
+@media (max-width: 500px) { .gallery-grid { columns: 1; } }
+</style>
+
+<script>
+const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+const items = document.querySelectorAll<HTMLElement>('.gallery-item');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    items.forEach(item => {
+      item.classList.toggle('hidden', cat !== 'All' && item.dataset.cat !== cat);
+    });
+  });
+});
+</script>

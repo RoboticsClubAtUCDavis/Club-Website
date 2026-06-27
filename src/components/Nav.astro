@@ -1,0 +1,134 @@
+---
+const links = [
+  { href: '/',           label: 'Home' },
+  { href: '/about',      label: 'About' },
+  { href: '/projects',   label: 'Projects' },
+  { href: '/workshops',  label: 'Workshops' },
+  { href: '/gallery',    label: 'Gallery' },
+  { href: '/team',       label: 'Team' },
+  { href: '/contact',    label: 'Contact' },
+];
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<nav class="nav">
+  <div class="nav-inner container">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-mark">⬡</span>
+      <span>UC Davis <strong>Robotics</strong></span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      {links.map(l => (
+        <li>
+          <a
+            href={l.href}
+            class:list={['nav-link', { active: current === l.href || (l.href !== '/' && current.startsWith(l.href)) }]}
+          >{l.label}</a>
+        </li>
+      ))}
+      <li>
+        <a href="/join" class="btn btn-primary nav-cta">Join Us</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(10, 12, 16, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+}
+
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 400;
+  white-space: nowrap;
+  color: var(--text);
+  margin-right: auto;
+}
+.nav-logo strong { font-weight: 700; color: var(--gold); }
+.nav-logo-mark { font-size: 1.3rem; color: var(--gold); line-height: 1; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav-link {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+.nav-link:hover, .nav-link.active { color: var(--text); }
+.nav-link.active { color: var(--gold); }
+
+.nav-cta { padding: 0.5rem 1.1rem; font-size: 0.82rem; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  transition: 0.2s;
+}
+
+@media (max-width: 860px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem 1.5rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-link { padding: 0.65rem 0; width: 100%; }
+  .nav-cta { margin-top: 0.75rem; }
+}
+</style>
+
+<script>
+const toggle = document.getElementById('navToggle');
+const links  = document.getElementById('navLinks');
+toggle?.addEventListener('click', () => links?.classList.toggle('open'));
+</script>

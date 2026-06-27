@@ -1,0 +1,156 @@
+/* ─── UC Davis Robotics Club — Design Tokens ─── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* UC Davis palette */
+  --gold:       #C9A84C;
+  --gold-dim:   #8A6E2F;
+  --blue:       #002855;
+  --blue-mid:   #003366;
+
+  /* Dark surfaces */
+  --bg:         #0A0C10;
+  --surface:    #111420;
+  --surface-2:  #181C28;
+  --border:     rgba(201, 168, 76, 0.15);
+
+  /* Text */
+  --text:       #E8E6DF;
+  --text-muted: #7A7D8A;
+  --text-dim:   #4A4D5A;
+
+  /* Type scale */
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --nav-h: 64px;
+  --max-w: 1160px;
+  --section-gap: 96px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+/* ─── Utility ─── */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+}
+
+.section {
+  padding-block: var(--section-gap);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.section-body {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 62ch;
+  line-height: 1.75;
+}
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #000;
+}
+.btn-primary:hover { background: #e0bc60; transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+.btn-outline:hover { background: rgba(201, 168, 76, 0.08); }
+
+/* ─── Gold rule divider ─── */
+.gold-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 2rem;
+}
+
+/* ─── Image placeholder (for empty slots) ─── */
+.img-placeholder {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+/* ─── Page hero ─── */
+.page-hero {
+  padding-top: calc(var(--nav-h) + 72px);
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── Responsive helpers ─── */
+@media (max-width: 768px) {
+  :root { --section-gap: 64px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

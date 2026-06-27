@@ -1,0 +1,186 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const leadership = [
+  { name: 'Alex Chen', role: 'President', major: "Mechanical Engineering, '27", img: '' },
+  { name: 'Priya Sharma', role: 'Vice President', major: "Electrical Engineering, '26", img: '' },
+  { name: 'Marcus Williams', role: 'Technical Lead', major: "Computer Science, '26", img: '' },
+  { name: 'Sofia Reyes', role: 'Outreach Chair', major: "Biomedical Eng, '28", img: '' },
+  { name: 'Jordan Kim', role: 'Treasurer', major: "Computer Engineering, '27", img: '' },
+  { name: 'Talia Nguyen', role: 'Secretary', major: "Electrical Engineering, '28", img: '' },
+];
+
+const subteamLeads = [
+  { name: 'Ryan Torres', role: 'Mechanical Lead', subteam: 'Rover', img: '' },
+  { name: 'Aisha Patel', role: 'Electrical Lead', subteam: 'Rover', img: '' },
+  { name: 'Connor Lee', role: 'Software Lead', subteam: 'Autonomy', img: '' },
+  { name: 'Maya Johnson', role: 'Vision Lead', subteam: 'Drone', img: '' },
+];
+
+const advisors = [
+  { name: 'Prof. Jennifer Park', dept: 'Mechanical & Aerospace Engineering', img: '' },
+  { name: 'Prof. David Osei', dept: 'Electrical & Computer Engineering', img: '' },
+];
+---
+
+<Layout title="Team" description="Meet the UC Davis Robotics Club leadership and members.">
+
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-label">The people</p>
+      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Our Team</h1>
+      <p class="section-body">
+        Sixty-plus students from every engineering discipline, united by a love of building things that move.
+      </p>
+    </div>
+  </section>
+
+  <!-- Leadership -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Executive Board</p>
+      <h2 class="section-title">Leadership</h2>
+      <div class="team-grid leadership-grid">
+        {leadership.map(m => (
+          <div class="member-card">
+            <div class="member-photo img-placeholder">[ {m.name} ]</div>
+            <div class="member-info">
+              <h3 class="member-name">{m.name}</h3>
+              <p class="member-role">{m.role}</p>
+              <p class="member-major">{m.major}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Subteam leads -->
+  <section class="section" style="background:var(--surface); border-block:1px solid var(--border);">
+    <div class="container">
+      <p class="section-label">Subteams</p>
+      <h2 class="section-title">Subteam Leads</h2>
+      <div class="team-grid">
+        {subteamLeads.map(m => (
+          <div class="member-card">
+            <div class="member-photo img-placeholder">[ {m.name} ]</div>
+            <div class="member-info">
+              <h3 class="member-name">{m.name}</h3>
+              <p class="member-role">{m.role}</p>
+              <p class="member-major" style="color:var(--gold)">{m.subteam} Team</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Faculty advisors -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Faculty</p>
+      <h2 class="section-title">Advisors</h2>
+      <div class="advisors-list">
+        {advisors.map(a => (
+          <div class="advisor-row">
+            <div class="advisor-photo img-placeholder">[ {a.name} ]</div>
+            <div>
+              <h3 class="advisor-name">{a.name}</h3>
+              <p class="advisor-dept">{a.dept}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Join CTA -->
+  <section class="section" style="background:var(--surface-2); border-top:1px solid var(--border);">
+    <div class="container cta-inner">
+      <div>
+        <h2 class="section-title" style="font-size:2rem; margin-bottom:0.75rem;">Want to be on this page?</h2>
+        <p class="section-body">We're always looking for passionate students to join.</p>
+      </div>
+      <a href="/join" class="btn btn-primary">Apply Now</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.leadership-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+
+.member-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.member-card:hover { border-color: var(--gold-dim); transform: translateY(-2px); }
+
+.member-photo { height: 200px; }
+
+.member-info { padding: 1rem 1.1rem 1.25rem; }
+
+.member-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.member-role {
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.25rem;
+}
+
+.member-major { font-size: 0.75rem; color: var(--text-dim); }
+
+.advisors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  max-width: 600px;
+}
+
+.advisor-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.advisor-photo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.advisor-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.advisor-dept { font-size: 0.8rem; color: var(--text-muted); }
+
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+</style>

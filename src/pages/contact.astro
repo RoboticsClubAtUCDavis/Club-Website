@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact" description="Get in touch with UC Davis Robotics Club.">
+
+  <section class="page-hero section">
+    <div class="container">
+      <p class="section-label">Reach out</p>
+      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Contact Us</h1>
+      <p class="section-body">
+        Questions about joining, sponsorship, partnerships, or just want to say hi?
+        We'd love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-layout">
+
+      <!-- Contact info -->
+      <div class="contact-info">
+        <p class="section-label">Find us</p>
+        <div class="gold-rule"></div>
+
+        <div class="info-blocks">
+          <div class="info-block">
+            <p class="info-label">Email</p>
+            <a href="mailto:robotics@ucdavis.edu" class="info-val">robotics@ucdavis.edu</a>
+          </div>
+          <div class="info-block">
+            <p class="info-label">Location</p>
+            <p class="info-val">Kemper Hall, Room 1065<br />University of California, Davis<br />Davis, CA 95616</p>
+          </div>
+          <div class="info-block">
+            <p class="info-label">Meeting Times</p>
+            <p class="info-val">General Meetings: Wednesdays 6–7 PM<br />Lab Hours: Mon/Wed/Fri 4–8 PM</p>
+          </div>
+          <div class="info-block">
+            <p class="info-label">Follow Us</p>
+            <div class="social-links">
+              <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link">Instagram</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+              <a href="https://github.com" target="_blank" rel="noopener" class="social-link">GitHub</a>
+              <a href="https://discord.com" target="_blank" rel="noopener" class="social-link">Discord</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact form (replace with Formspree or similar) -->
+      <div class="contact-form-wrap">
+        <p class="section-label">Send a message</p>
+        <div class="gold-rule"></div>
+
+        <!--
+          To enable this form, sign up at https://formspree.io and replace
+          YOUR_FORM_ID with your actual form ID.
+          Example: action="https://formspree.io/f/xabcdefg"
+        -->
+        <div class="form-placeholder">
+          <p>
+            Replace this block with a <strong>Formspree</strong> or <strong>Netlify Forms</strong> form.
+            Example snippet:
+          </p>
+          <pre class="code-block"><code>{`<form action="https://formspree.io/f/YOUR_ID" method="POST">
+  <input type="text" name="name" placeholder="Your name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <textarea name="message" placeholder="Message" required></textarea>
+  <button type="submit" class="btn btn-primary">Send</button>
+</form>`}</code></pre>
+          <p style="margin-top:1rem;">Or link to your Google Form:</p>
+          <a href="https://forms.google.com" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:0.75rem;">
+            Open Contact Form →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sponsor note -->
+  <section class="section" style="background:var(--surface); border-top:1px solid var(--border);">
+    <div class="container" style="max-width:640px;">
+      <p class="section-label">Sponsorship</p>
+      <h2 class="section-title" style="font-size:2rem;">Partner with us</h2>
+      <p class="section-body" style="margin-bottom:2rem;">
+        We welcome industry partners who want to support student robotics at UC Davis.
+        Sponsors gain visibility, recruiting access, and the satisfaction of funding
+        something genuinely cool.
+      </p>
+      <a href="mailto:robotics@ucdavis.edu?subject=Sponsorship Inquiry" class="btn btn-primary">Sponsorship Inquiries</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: flex-start;
+}
+
+.info-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 0.5rem;
+}
+
+.info-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.info-val {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+a.info-val { color: var(--text); transition: color 0.15s; }
+a.info-val:hover { color: var(--gold); }
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.social-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 0.3em 0.9em;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+
+.social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+.form-placeholder {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 0.5rem;
+}
+
+.form-placeholder p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+.form-placeholder strong { color: var(--text); }
+
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: pre;
+}
+
+@media (max-width: 720px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+}
+</style>
