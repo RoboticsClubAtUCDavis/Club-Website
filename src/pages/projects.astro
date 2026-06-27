@@ -1,46 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const projects = [
   {
-    title: 'Autonomous Rover',
-    tag: 'Autonomy · Mechanical',
+    title: 'Engineering Club Day Showcase',
+    tag: 'Outreach · Demo',
     status: 'Active',
-    year: '2024',
-    desc: 'A fully autonomous ground vehicle designed for the NASA Robotics Mining Competition. The rover uses LiDAR-based SLAM for navigation and a custom auger system for material excavation.',
-    tech: ['ROS2', 'LiDAR', 'SolidWorks', 'Python', 'Custom PCB'],
-  },
-  {
-    title: '6-DOF Robotic Arm',
-    tag: 'Manipulation',
-    status: 'Active',
-    year: '2023',
-    desc: 'A desktop-scale robotic arm with sub-millimeter repeatability, built for automated assembly and pick-and-place research. Features a custom inverse kinematics solver.',
-    tech: ['ROS2', 'MoveIt', 'Servo Motors', 'C++'],
-  },
-  {
-    title: 'Precision Ag Drone',
-    tag: 'Aerial · CV',
-    status: 'Active',
-    year: '2024',
-    desc: 'A quadrotor platform equipped with a multispectral camera for crop health monitoring. Integrates with NDVI analysis pipeline built in-house.',
-    tech: ['ArduPilot', 'OpenCV', 'PyTorch', 'Mission Planner'],
-  },
-  {
-    title: 'Line Following Bot',
-    tag: 'Beginner Project',
-    status: 'Complete',
-    year: '2022',
-    desc: 'An introductory project for new members. A PID-controlled robot that follows a taped path. Used as a teaching tool each recruitment quarter.',
-    tech: ['Arduino', 'PID', 'IR Sensors'],
-  },
-  {
-    title: 'Swarm Robotics Testbed',
-    tag: 'Research',
-    status: 'Planning',
     year: '2025',
-    desc: 'A fleet of small wheeled robots for studying emergent swarm behaviors and distributed consensus algorithms, in collaboration with the CS department.',
-    tech: ['ESP32', 'Bluetooth Mesh', 'Python', 'ROS2'],
+    desc: 'A hands-on robotics showcase built for Engineering Club Day, featuring interactive bots and demonstrations that introduce students to mechanical, electrical, and software systems.',
+    tech: ['Rapid Prototyping', 'Embedded Systems', 'Outreach', 'CAD'],
+    image: `${base}images/2025%20Engineering%20Club%20Day/WhiteBot.png`,
+  },
+  {
+    title: 'Drone Platform',
+    tag: 'Aerial · Autonomy',
+    status: 'Active',
+    year: '2025',
+    desc: 'A custom aerial platform for flight testing, visual sensing, and autonomous navigation experiments. The project focuses on reliable hardware integration and flight stability.',
+    tech: ['ROS2', 'Computer Vision', 'Python', 'Flight Control'],
+    image: `${base}images/Drone/aerial.png`,
+  },
+  {
+    title: 'Mini Bot Line Follower',
+    tag: 'Beginner · Controls',
+    status: 'Active',
+    year: '2025',
+    desc: 'A beginner-friendly line-following robot used to teach sensor calibration, control loops, and embedded programming in a compact build.',
+    tech: ['Arduino', 'PID', 'IR Sensors', 'C++'],
+    image: `${base}images/Mini%20bot/IMG_0393.png`,
+  },
+  {
+    title: 'Quadruped Robot',
+    tag: 'Legged Locomotion',
+    status: 'In Development',
+    year: '2025',
+    desc: 'A compact quadruped platform exploring gait control, balance, and legged locomotion. The build is focused on making complex motion systems approachable for student teams.',
+    tech: ['Embedded C++', 'IMU', 'Servo Motors', 'Control Theory'],
+    image: `${base}images/Quadruped/image.png`,
   },
 ];
 ---
@@ -63,7 +61,9 @@ const projects = [
       <div class="projects-list">
         {projects.map((p, i) => (
           <div class="project-row">
-            <div class="project-img img-placeholder" style="height:260px; border-radius:6px;">[ {p.title} ]</div>
+            <div class="project-img-wrap">
+              <img src={p.image} alt={p.title} class="project-img" loading="lazy" decoding="async" />
+            </div>
             <div class="project-detail">
               <div class="project-meta">
                 <span class="project-tag-text">{p.tag}</span>
@@ -164,9 +164,24 @@ const projects = [
   color: var(--text-muted);
 }
 
+ .project-img-wrap {
+  height: 260px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 @media (max-width: 700px) {
   .project-row { grid-template-columns: 1fr; }
-  .project-row:nth-child(even) .project-img { order: 0; }
+  .project-row:nth-child(even) .project-img-wrap { order: 0; }
   .project-row:nth-child(even) .project-detail { order: 0; }
 }
 </style>
