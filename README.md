@@ -1,5 +1,6 @@
 # UC Davis Robotics Club Website
 Website: https://roboticsclubatucdavis.github.io/Club-Website/
+
 Built with [Astro](https://astro.build) and deployed via GitHub Pages.
 
 ## Local development
