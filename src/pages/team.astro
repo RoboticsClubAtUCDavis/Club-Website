@@ -4,9 +4,9 @@ import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL;
 
 const leadership = [
-  { name: 'Jacob Denny', role: 'President', major: 'Mechanical Engineering', img: `${base}/images/Team/Jacob_Denny.jpg` },
+  { name: 'Jacob Denny', role: 'President', major: 'Mechanical Engineering', email: 'jcdenny@ucdavis.edu', img: `${base}/images/Team/Jacob_Denny.jpg` },
   { name: 'Zain Mustafa', role: 'Vice President', major: 'Electrical & Computer Engineering', img: '' },
-  { name: 'Hannah White', role: 'Secretary', major: 'Mechanical Engineering', img: `${base}/images/Team/Hannah_White.jpg` },
+  { name: 'Hannah White', role: 'Secretary', major: 'Mechanical Engineering', email: 'hawhite@ucdavis.edu', img: `${base}/images/Team/Hannah_White.jpg` },
 ];
 
 const subteamLeads = [
@@ -61,6 +61,7 @@ const advisors = [
               <h3 class="member-name">{m.name}</h3>
               <p class="member-role">{m.role}</p>
               <p class="member-major">{m.major}</p>
+              {m.email && <a class="member-email" href={`mailto:${m.email}`}>{m.email}</a>}
             </div>
           </div>
         ))}
@@ -196,6 +197,19 @@ const advisors = [
 }
 
 .member-major { font-size: 0.75rem; color: var(--text-dim); }
+
+.member-email {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 0.90rem;
+  color: var(--text-dim);
+}
+
+.member-email:hover {
+  color: #003366;
+  text-decoration: underline;
+}
 
 .advisors-list {
   display: flex;
