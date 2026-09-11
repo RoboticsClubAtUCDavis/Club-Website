@@ -5,36 +5,34 @@ const base = import.meta.env.BASE_URL;
 
 const futureEvents = [
   {
-    title: 'OpenCV Workshop',
+    title: 'Orientation - Engineering Club Fair',
+    date: 'Friday, Sept. 18th',
+    time: '9:45am-11am',
+    location: 'Bainer Lawn',
+    mapUrl: 'https://maps.app.goo.gl/VZyFSgZ1ZBdjvaYo6',
+    tag: 'School Events',
+    desc: 'Welcome Freshmen! Stop by our table at this event to learn more about our club.',
+  },
+ 
+   {
+    title: 'General Club Meeting',
     date: 'TBA',
     time: 'TBA',
-    location: '📍 TBA',
-    tag: 'Workshop',
-    desc: 'A hands-on introduction to computer vision workflows for robotics.',
-  },
-  {
-    title: 'General Club Meeting',
-    date: 'Oct 12, 2025',
-    time: '3-5 PM',
-    location: '📍 UC Davis campus',
+    location: 'TBA',
     tag: 'Meeting',
-    desc: 'Meet the team, hear project updates, and find a build group to join.',
+    desc: 'Meeting date, time, and location will be announced at a later date. Join our Discord to stay updated!',
   },
+
   {
-    title: 'Project Work Session',
-    date: 'Every Monday',
-    time: '6pm',
-    location: '📍 Kemper 1065',
-    tag: 'Build',
-    desc: 'Open build time for combat robotics, drones, mini bots, and new project ideas.',
-  },
-  {
-    title: 'New Member Orientation',
-    date: 'Next quarter',
-    time: 'TBA',
-    location: '📍 Zoom + Kemper',
-    tag: 'Orientation',
-    desc: 'A first-session overview for students who want to get involved with the club.',
+    title: 'Fall Involvement Fair',
+    date: 'Tuesday, Oct. 13th',
+    time: '12pm-3pm',
+    location: 'Memorial Union Quad & Patio',
+    mapUrl: 'https://maps.app.goo.gl/EX3HcpJumMpgWEnH7',
+    tag: 'School Events',
+    desc: "We are excited to see you at this year's Involvement Fair! Drop by and get involved with the Robotics Club.",
+    linkText: 'Click here',
+    linkUrl: 'https://csi.ucdavis.edu/events-programs-awards/involvement-fair',
   },
 ];
 
@@ -64,7 +62,25 @@ const pastWorkshops = [
             </div>
             <div class="event-info">
               <h3 class="event-title">{event.title}</h3>
-              <p class="event-location">{event.location}</p>
+              {event.mapUrl ? (
+                <a class="event-location" href={event.mapUrl} target="_blank" rel="noopener noreferrer">
+                  {event.location}
+                </a>
+              ) : (
+                <p class="event-location">{event.location}</p>
+              )}
+              <p class="event-desc">
+                {event.desc}
+                {event.linkUrl && (
+                  <>
+                    {' '}
+                    <a class="event-desc-link" href={event.linkUrl} target="_blank" rel="noopener noreferrer">
+                      {event.linkText || 'Learn more'}
+                    </a>
+                    {' '}to learn more about this event.
+                  </>
+                )}
+              </p>
             </div>
             <span class="event-badge">{event.tag}</span>
           </article>
@@ -148,9 +164,38 @@ const pastWorkshops = [
   margin-bottom: 0.3rem;
 }
 
+.event-info {
+  min-width: 0;
+}
+
 .event-location {
+  display: inline-block;
   color: var(--text-muted);
   font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 0.15rem;
+}
+
+.event-location:hover {
+  color: var(--gold);
+}
+
+.event-desc {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin-top: 0.35rem;
+  max-width: 52ch;
+}
+
+.event-desc-link {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 0.15rem;
+}
+
+.event-desc-link:hover {
+  color: #e0bc60;
 }
 
 .event-badge {
