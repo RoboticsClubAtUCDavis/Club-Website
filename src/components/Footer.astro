@@ -4,9 +4,19 @@ const base = import.meta.env.BASE_URL;
 <footer class="footer">
   <div class="container footer-inner">
     <div class="footer-brand">
-      <span class="footer-mark" aria-hidden="true">DRC</span>
-      <p class="footer-name">Davis Robotics Club</p>
-      <p class="footer-sub">University of California, Davis</p>
+      <div class="footer-brand-content">
+        <img
+          class="footer-logo"
+          src={`${base}images/Logos/Robot_Arm_Logo.png`}
+          alt="Davis Robotics Club logo"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="footer-brand-text">
+          <p class="footer-name">Davis Robotics Club</p>
+          <p class="footer-sub">University of California, Davis</p>
+        </div>
+      </div>
     </div>
 
     <nav class="footer-nav">
@@ -57,27 +67,42 @@ const base = import.meta.env.BASE_URL;
 
 .footer-brand {
   flex: 1;
-  min-width: 160px;
+  min-width: 180px;
 }
 
-.footer-mark {
-  font-size: 1.8rem;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 0.75rem;
+.footer-brand-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo {
+  width: 9.2rem;
+  height: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .footer-name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: clamp(1.25rem, 1.3vw, 1.8rem);
+  line-height: 1.1;
   color: var(--text);
+  margin: 0;
 }
 
 .footer-sub {
-  font-size: 0.8rem;
+  font-size: clamp(0.8rem, 0.9vw, 1rem);
+  line-height: 1.35;
   color: var(--text-dim);
-  margin-top: 0.25rem;
+  margin: 0;
 }
 
 .footer-nav {

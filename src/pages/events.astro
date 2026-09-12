@@ -93,7 +93,7 @@ const pastWorkshops = [
                 )}
               </p>
             </div>
-            <span class="event-badge">{event.tag}</span>
+            <span class="event-badge" data-tag={event.tag.toLowerCase()}>{event.tag}</span>
           </article>
         ))}
       </div>
@@ -223,6 +223,24 @@ const pastWorkshops = [
   background: rgba(201,168,76,0.1);
   color: var(--gold);
   border: 1px solid rgba(201,168,76,0.25);
+}
+
+.event-badge[data-tag='competition'] {
+  background: rgba(220, 38, 38, 0.12);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.event-badge[data-tag='school events'] {
+  background: rgba(37, 99, 235, 0.12);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.event-badge[data-tag='meeting'] {
+  background: rgba(22, 163, 74, 0.12);
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.3);
 }
 
 .events-band {
