@@ -20,11 +20,11 @@ const photos = [
   { src: `${base}images/Drone/aerial.png`, alt: 'Aerial drone platform', category: 'Drone', size: 'small' },
   { src: `${base}images/Drone/68792591330__7A4233E5-0C54-4E37-BDD2-CDBA8CFBEF5E_Original.png`, alt: 'Drone build photo', category: 'Drone', size: 'small' },
   { src: `${base}images/Drone/IMG_3854_Original.png`, alt: 'Drone team photo', category: 'Drone', size: 'small' },
-  { src: `${base}images/Mini%20bot/IMG_0396.png`, alt: 'Mini bot line follower setup', category: 'Mini Bot', size: 'large' },
-  { src: `${base}images/Mini%20bot/IMG_0393.png`, alt: 'Mini bot team demo', category: 'Mini Bot', size: 'small' },
-  { src: `${base}images/Mini%20bot/IMG_0394.png`, alt: 'Mini bot test run', category: 'Mini Bot', size: 'small' },
-  { src: `${base}images/Mini%20bot/IMG_0397.png`, alt: 'Mini bot close-up', category: 'Mini Bot', size: 'small' },
-  { src: `${base}images/Mini%20bot/20250222_171231.png`, alt: 'Mini bot workshop moment', category: 'Mini Bot', size: 'small' },
+  { src: `${base}images/Mini%20bot/IMG_0396.png`, alt: 'Line Follower setup', category: 'Line Follower', size: 'large' },
+  { src: `${base}images/Mini%20bot/IMG_0393.png`, alt: 'Line Follower team demo', category: 'Line Follower', size: 'small' },
+  { src: `${base}images/Mini%20bot/IMG_0394.png`, alt: 'Line Follower test run', category: 'Line Follower', size: 'small' },
+  { src: `${base}images/Mini%20bot/IMG_0397.png`, alt: 'Line Follower close-up', category: 'Line Follower', size: 'small' },
+  { src: `${base}images/Mini%20bot/20250222_171231.png`, alt: 'Line Follower workshop moment', category: 'Line Follower', size: 'small' },
   { src: `${base}images/Quadruped/image.png`, alt: 'Quadruped robot prototype', category: 'Quadruped', size: 'small' },
   { src: `${base}images/Past_Meeting.png`, alt: 'Club activity photo', category: 'General', size: 'small' },
   { src: `${base}images/October_2025_Meeting.jpg`, alt: 'General meeting', category: 'General', size: 'small' },
@@ -62,21 +62,31 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
         ))}
       </div>
 
-      <!-- Masonry-style grid -->
+      <!-- Organized gallery grid -->
       <div class="gallery-grid" id="galleryGrid">
         {photos.map(p => (
-          <div class="gallery-item" data-cat={p.category} data-size={p.size}>
+          <button class="gallery-item" data-cat={p.category} data-size={p.size} type="button" aria-label={`Expand image: ${p.alt}`}>
             <img src={p.src} alt={p.alt} class="gallery-img" loading="lazy" decoding="async" />
             <div class="gallery-overlay">
               <p class="gallery-caption">{p.alt}</p>
               <span class="gallery-cat">{p.category}</span>
             </div>
-          </div>
+          </button>
         ))}
       </div>
 
     </div>
   </section>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Expanded gallery image">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close expanded image">&times;</button>
+      <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous image">&#8249;</button>
+      <img class="lightbox-img" id="lightboxImg" alt="" />
+      <button class="lightbox-arrow lightbox-next" id="lightboxNext" type="button" aria-label="Next image">&#8250;</button>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </dialog>
 
   <!-- Submit photo CTA -->
   <section class="section" style="background:var(--surface);border-top:1px solid var(--border);">
@@ -120,25 +130,34 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
   border-color: var(--gold);
 }
 
-/* CSS columns masonry */
 .gallery-grid {
-  columns: 3;
-  column-gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 200px;
+  gap: 12px;
 }
 
 .gallery-item {
-  break-inside: avoid;
-  margin-bottom: 12px;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
   border-radius: 6px;
   cursor: pointer;
+  text-align: left;
 }
 
-.gallery-item[data-size="large"] .gallery-img { height: 340px; }
-.gallery-item[data-size="small"] .gallery-img { height: 200px; }
+.gallery-item:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-.gallery-img { width: 100%; border-radius: 6px; object-fit: cover; display: block; }
+.gallery-item[data-size="large"] { grid-column: span 2; grid-row: span 2; }
+
+.gallery-img { width: 100%; height: 100%; border-radius: 6px; object-fit: cover; display: block; }
 
 .gallery-overlay {
   position: absolute;
@@ -155,6 +174,7 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
 .gallery-item:hover .gallery-overlay { opacity: 1; }
 
 .gallery-caption {
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 600;
   color: #fff;
@@ -172,13 +192,151 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
 /* hidden by filter */
 .gallery-item.hidden { display: none; }
 
-@media (max-width: 860px) { .gallery-grid { columns: 2; } }
-@media (max-width: 500px) { .gallery-grid { columns: 1; } }
+.lightbox {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  padding: 2rem 5rem;
+  border: 0;
+  background: rgba(8, 9, 10, 0.94);
+  color: var(--text);
+}
+
+.lightbox::backdrop { background: rgba(8, 9, 10, 0.88); }
+
+.lightbox-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-img {
+  max-width: min(100%, 1100px);
+  max-height: calc(100vh - 7rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lightbox-close,
+.lightbox-arrow {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  background: rgba(0, 0, 0, 0.38);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.lightbox-close:hover,
+.lightbox-arrow:hover,
+.lightbox-close:focus-visible,
+.lightbox-arrow:focus-visible {
+  background: rgba(201, 168, 76, 0.8);
+  border-color: var(--gold);
+  color: #000;
+}
+
+.lightbox-close {
+  top: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.lightbox-arrow {
+  top: 50%;
+  width: 3.25rem;
+  height: 5rem;
+  transform: translateY(-50%);
+  border-radius: 4px;
+  font-size: 3rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.lightbox-prev { left: 0; }
+.lightbox-next { right: 0; }
+
+.lightbox-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(100%, 700px);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .lightbox { padding: 3.5rem 0.75rem; }
+  .lightbox-arrow { width: 2.5rem; height: 4rem; font-size: 2.25rem; }
+  .lightbox-img { max-height: calc(100vh - 9rem); }
+}
+
+@media (max-width: 860px) {
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 500px) {
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .gallery-item[data-size="large"] { grid-column: span 1; grid-row: span 1; }
+}
 </style>
 
 <script>
 const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-const items = document.querySelectorAll<HTMLElement>('.gallery-item');
+const items = document.querySelectorAll<HTMLButtonElement>('.gallery-item');
+const lightbox = document.querySelector<HTMLDialogElement>('#lightbox');
+const lightboxImg = document.querySelector<HTMLImageElement>('#lightboxImg');
+const lightboxCaption = document.querySelector<HTMLParagraphElement>('#lightboxCaption');
+const lightboxClose = document.querySelector<HTMLButtonElement>('#lightboxClose');
+const lightboxPrev = document.querySelector<HTMLButtonElement>('#lightboxPrev');
+const lightboxNext = document.querySelector<HTMLButtonElement>('#lightboxNext');
+let currentIndex = 0;
+
+const visibleItems = () => Array.from(items).filter(item => !item.classList.contains('hidden'));
+
+const showImage = (index: number) => {
+  const currentItems = visibleItems();
+  currentIndex = (index + currentItems.length) % currentItems.length;
+  const image = currentItems[currentIndex].querySelector<HTMLImageElement>('.gallery-img');
+  if (!image || !lightboxImg || !lightboxCaption) return;
+  lightboxImg.src = image.src;
+  lightboxImg.alt = image.alt;
+  lightboxCaption.textContent = image.alt;
+};
+
+const openLightbox = (item: HTMLButtonElement) => {
+  const index = visibleItems().indexOf(item);
+  showImage(index);
+  lightbox?.showModal();
+};
+
+items.forEach(item => item.addEventListener('click', () => openLightbox(item)));
+lightboxClose?.addEventListener('click', () => lightbox?.close());
+lightboxPrev?.addEventListener('click', () => showImage(currentIndex - 1));
+lightboxNext?.addEventListener('click', () => showImage(currentIndex + 1));
+lightbox?.addEventListener('click', event => {
+  if (event.target === lightbox) lightbox.close();
+});
+
+document.addEventListener('keydown', event => {
+  if (!lightbox?.open) return;
+  if (event.key === 'ArrowLeft') showImage(currentIndex - 1);
+  if (event.key === 'ArrowRight') showImage(currentIndex + 1);
+});
 
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
