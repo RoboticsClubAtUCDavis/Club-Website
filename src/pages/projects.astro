@@ -92,6 +92,26 @@ const projects = [
     </div>
   </section>
 
+  <section class="section training-cta" aria-labelledby="training-title">
+    <div class="container events-cta">
+      <p class="section-label">Build with confidence</p>
+      <h2 class="section-title" id="training-title" style="font-size:2rem;">Want to get certified to use machinery?</h2>
+      <p class="section-body">
+        Check out the ESDC website and sign up for training. Learn how to use mill, lath, drill press and other tools safely and effectively, and get certified to use the ESDC lab.
+      </p>
+      <div class="cta-actions">
+        <a
+          href="https://design.engineering.ucdavis.edu/training"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary"
+        >
+          View Training
+        </a>
+      </div>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
@@ -193,9 +213,22 @@ const projects = [
   transform: scale(1.08);
 }
 
+.events-cta { max-width: 680px; }
+
+.training-cta { border-top: 1px solid var(--border); }
+
+.training-cta .cta-actions { margin-top: 1.5rem; }
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 @media (max-width: 700px) {
   .project-row { grid-template-columns: 1fr; }
   .project-row:nth-child(even) .project-img-wrap { order: 0; }
   .project-row:nth-child(even) .project-detail { order: 0; }
+
 }
 </style>
