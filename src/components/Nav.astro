@@ -84,7 +84,11 @@ const homePath = base.replace(/\/$/, '') || '/';
   width: auto;    
   object-fit: contain;
   display: block;
+  transition: transform 0.2s ease;
+  transform-origin: center;
 }
+
+.nav-logo:hover .nav-logo-img { transform: scale(1.08); }
 
 .nav-links {
   display: flex;
