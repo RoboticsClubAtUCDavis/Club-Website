@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://RoboticsClubAtUCDavis.github.io/Club-Website/sitemap-index.xml
+Sitemap: https://roboticsclubatucdavis.github.io/Club-Website/sitemap-0.xml
