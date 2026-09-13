@@ -8,8 +8,35 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'UC Davis Robotics Club — building the future, one robot at a time.' } = Astro.props;
+const { title, description = 'UC Davis Robotics Club is a student engineering organization building combat robots, drones, and autonomous systems at UC Davis.' } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const siteUrl = Astro.site ?? new URL(Astro.url.origin);
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
+const socialImage = new URL(`${base}images/Logos/Metal_Logo.png`, siteUrl);
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'UC Davis Robotics Club',
+  alternateName: 'Davis Robotics Club',
+  url: siteUrl.href,
+  logo: socialImage.href,
+  description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Davis',
+    addressRegion: 'CA',
+    addressCountry: 'US',
+  },
+  memberOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'University of California, Davis',
+    url: 'https://www.ucdavis.edu/',
+  },
+  sameAs: [
+    'https://www.instagram.com/davisrobotics/',
+    'https://github.com/RoboticsClubAtUCDavis',
+  ],
+};
 ---
 
 <!doctype html>
@@ -18,8 +45,21 @@ const base = import.meta.env.BASE_URL;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="UC Davis Robotics Club" />
+    <meta property="og:title" content={`${title} — UC Davis Robotics Club`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:image" content={socialImage.href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} — UC Davis Robotics Club`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage.href} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <title>{title} — UC Davis Robotics Club</title>
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
   <body>
     <Nav />
