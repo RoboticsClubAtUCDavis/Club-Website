@@ -15,8 +15,12 @@ const base = import.meta.env.BASE_URL;
       <div class="hero-content">
         <p class="hero-eyebrow">UC Davis · Est. 2014</p>
         <h1 class="hero-title">
-          Hands-On<br />
-          <span class="hero-title-gold">Robotics.</span>
+          <span class="hero-word" aria-label="Hands-On">
+            <span class="hero-letter" style="--letter-index:0">H</span><span class="hero-letter" style="--letter-index:1">a</span><span class="hero-letter" style="--letter-index:2">n</span><span class="hero-letter" style="--letter-index:3">d</span><span class="hero-letter" style="--letter-index:4">s</span><span class="hero-letter" style="--letter-index:5">-</span><span class="hero-letter" style="--letter-index:6">O</span><span class="hero-letter" style="--letter-index:7">n</span>
+          </span><br />
+          <span class="hero-word hero-title-gold" aria-label="Robotics.">
+            <span class="hero-letter" style="--letter-index:8">R</span><span class="hero-letter" style="--letter-index:9">o</span><span class="hero-letter" style="--letter-index:10">b</span><span class="hero-letter" style="--letter-index:11">o</span><span class="hero-letter" style="--letter-index:12">t</span><span class="hero-letter" style="--letter-index:13">i</span><span class="hero-letter" style="--letter-index:14">c</span><span class="hero-letter" style="--letter-index:15">s</span><span class="hero-letter" style="--letter-index:16">.</span>
+          </span>
         </h1>
         <p class="hero-body">
           A student-run club at UC Davis where engineers, designers, and makers collaborate on all things robotics.
@@ -185,13 +189,37 @@ const base = import.meta.env.BASE_URL;
 }
 
 .hero-title {
+  position: relative;
   font-size: clamp(3.5rem, 8vw, 6.5rem);
   font-weight: 800;
   line-height: 1.0;
   margin-bottom: 1.5rem;
 }
 
+.hero-word { display: inline-block; white-space: nowrap; }
+
+.hero-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.35em) rotate(4deg);
+  animation: hero-letter-build 0.42s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+  animation-delay: calc(var(--letter-index) * 0.075s + 0.2s);
+}
+
 .hero-title-gold { color: var(--gold); }
+
+@keyframes hero-letter-build {
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+}
 
 .hero-body {
   font-size: 1.1rem;
