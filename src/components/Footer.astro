@@ -129,6 +129,17 @@ const base = import.meta.env.BASE_URL;
   .footer-logo-hover:hover { animation: none; }
 }
 
+@media (max-width: 768px) {
+  .footer-logo,
+  .footer-logo.is-visible {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .footer-logo-hover:hover { animation: none; }
+}
+
 .footer-brand-text {
   display: flex;
   flex-direction: column;

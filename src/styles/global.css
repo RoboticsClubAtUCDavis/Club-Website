@@ -266,6 +266,11 @@ h1, h2, h3, h4 {
 /* ─── Responsive helpers ─── */
 @media (max-width: 768px) {
   :root { --section-gap: 64px; }
+
+  .btn-primary::after,
+  .btn-primary:hover::after {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
