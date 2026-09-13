@@ -170,6 +170,44 @@ h1, h2, h3, h4 {
   animation: button-border-trace 1.8s linear infinite;
 }
 
+.idle-shine {
+  overflow: visible;
+}
+
+.idle-shine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: linear-gradient(110deg, transparent 0 43%, rgba(255, 255, 255, 0.6) 50%, transparent 57%);
+  background-size: 220% 100%;
+  background-position: 0% 0;
+  pointer-events: none;
+  z-index: 2;
+  animation: idle-button-shine 2.8s linear infinite;
+}
+
+.idle-shine:hover::before,
+.idle-shine:focus-visible::before {
+  opacity: 0;
+  animation: none;
+}
+
+.interest-form-shine::before {
+  animation-name: interest-form-button-shine;
+  animation-duration: 2.8s;
+}
+
+@keyframes idle-button-shine {
+  0%, 8% { background-position: 130% 0; }
+  35%, 100% { background-position: -30% 0; }
+}
+
+@keyframes interest-form-button-shine {
+  0%, 8% { background-position: 130% 0; }
+  48%, 100% { background-position: -30% 0; }
+}
+
 @property --trace-angle {
   syntax: '<angle>';
   inherits: false;
@@ -186,6 +224,8 @@ h1, h2, h3, h4 {
     opacity: 1;
     animation: none;
   }
+
+  .idle-shine::before { display: none; }
 }
 
 .btn-outline {
