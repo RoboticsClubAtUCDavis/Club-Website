@@ -199,6 +199,21 @@ const base = import.meta.env.BASE_URL;
   }
 }
 
+@media (max-width: 640px) {
+  .hero-cad-image.is-visible {
+    animation: cad-image-fade-in 0.9s ease-out forwards;
+  }
+
+  .hero-cad-image:hover img,
+  .hero-cad-image:focus-visible img {
+    transform: none;
+  }
+
+  .hero-cad-image.is-driving img {
+    animation: none;
+  }
+}
+
 .hero-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.75rem;
