@@ -182,16 +182,23 @@ const base = import.meta.env.BASE_URL;
 </style>
 
 <script>
-const footerLogo = document.querySelector('.footer-logo');
+const footerLogo = document.querySelector<HTMLElement>('.footer-logo');
 
-if (footerLogo && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const logoObserver = new IntersectionObserver(([entry]) => {
-    if (entry.isIntersecting) {
-      footerLogo.classList.add('is-visible');
-      logoObserver.disconnect();
-    }
-  }, { threshold: 0.35 });
+if (footerLogo) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    footerLogo.classList.add('is-visible');
+  } else {
+    const logoObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        footerLogo.classList.remove('is-visible');
+        void footerLogo.offsetWidth;
+        footerLogo.classList.add('is-visible');
+      } else {
+        footerLogo.classList.remove('is-visible');
+      }
+    }, { threshold: 0.35 });
 
-  logoObserver.observe(footerLogo);
+    logoObserver.observe(footerLogo);
+  }
 }
 </script>

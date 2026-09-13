@@ -163,6 +163,15 @@ const base = import.meta.env.BASE_URL;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .hero-cad-image,
+  .hero-cad-image.is-visible {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
 .hero-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -339,7 +348,7 @@ const base = import.meta.env.BASE_URL;
 </style>
 
 <script>
-const cadImage = document.querySelector('[data-cad-image]');
+const cadImage = document.querySelector<HTMLElement>('[data-cad-image]');
 
 if (cadImage) {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -347,8 +356,11 @@ if (cadImage) {
   } else {
     const cadImageObserver = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
+        cadImage.classList.remove('is-visible');
+        void cadImage.offsetWidth;
         cadImage.classList.add('is-visible');
-        cadImageObserver.disconnect();
+      } else {
+        cadImage.classList.remove('is-visible');
       }
     }, { threshold: 0.25 });
 
