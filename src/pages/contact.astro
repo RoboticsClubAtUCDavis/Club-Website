@@ -1,21 +1,98 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const joinUrl = `${import.meta.env.BASE_URL}join`;
 ---
 
-<Layout title="Join the Club" description="Join and contact UC Davis Robotics Club.">
-  <script define:vars={{ joinUrl }}>
-    window.location.replace(joinUrl);
-  </script>
+<Layout title="Contact" description="Contact the UC Davis Robotics Club for meeting times, location, and ways to connect.">
   <section class="page-hero section">
     <div class="container">
-      <p class="section-label">Membership</p>
-      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Join the Club</h1>
+      <p class="section-label">Find us</p>
+      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Contact</h1>
       <p class="section-body">
-        Contact details have moved to the Join Us page.
+        Find the UC Davis Robotics Club, get meeting updates, and connect with the team.
       </p>
-      <a href={joinUrl} class="btn btn-primary" style="margin-top:2rem;">Go to Join Us</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-layout">
+      <div class="info-blocks">
+        <div class="info-block">
+          <p class="info-label">Location</p>
+          <p class="info-val">University of California, Davis<br />Davis, CA 95616</p>
+        </div>
+        <div class="info-block">
+          <p class="info-label">Meeting Times</p>
+          <p class="info-val">General Meeting times TBD for upcoming Fall 2026.</p>
+        </div>
+        <div class="info-block">
+          <p class="info-label">Email</p>
+          <p class="info-val"><a href="mailto:davisroboticsclub@gmail.com" class="email-link">davisroboticsclub@gmail.com</a></p>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label">Stay connected</p>
+        <div class="contact-card">
+          <p>Join the club Discord to stay up to date with meetings and events.</p>
+          <div class="contact-actions">
+            <a href="https://discord.gg/XA3rYvC9A9" target="_blank" rel="noopener" class="btn btn-primary">Join Discord</a>
+            <a href="https://www.instagram.com/davisrobotics/" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
+
+<style>
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: flex-start;
+}
+
+.info-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.info-val {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.email-link:hover { color: var(--text); text-decoration: underline; }
+
+.contact-card {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.contact-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.65; }
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 720px) {
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+}
+</style>
