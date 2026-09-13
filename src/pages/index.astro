@@ -30,7 +30,7 @@ const base = import.meta.env.BASE_URL;
           <a href={`${base}projects`} class="btn btn-outline">See Our Work</a>
         </div>
       </div>
-      <div class="hero-cad-image" data-cad-image>
+      <div class="hero-cad-image" data-cad-image role="button" tabindex="0" aria-label="Drive Patty combat robot">
         <img src={`${base}images/Combat%20Robotics/Patty_CAD.png`} alt="Patty combat robot CAD design" loading="lazy" decoding="async" />
       </div>
     </div>
@@ -140,7 +140,7 @@ const base = import.meta.env.BASE_URL;
 
 .hero-cad-image {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   width: min(100%, 352px);
   min-height: 220px;
   justify-self: end;
@@ -161,6 +161,16 @@ const base = import.meta.env.BASE_URL;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.3));
+  transition: transform 0.25s ease;
+}
+
+.hero-cad-image:hover img,
+.hero-cad-image:focus-visible img {
+  transform: scale(1.08);
+}
+
+.hero-cad-image.is-driving img {
+  animation: cad-image-drive 7s ease-in-out both;
 }
 
 @keyframes cad-image-fade-in {
@@ -168,6 +178,16 @@ const base = import.meta.env.BASE_URL;
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes cad-image-drive {
+  0% { transform: translate(0, 0) scaleX(1); }
+  25% { transform: translate(-70vw, 50vh) scaleX(1); }
+  29% { transform: translate(-70vw, 50vh) scaleX(-1); }
+  43% { transform: translate(0, -20vh) scaleX(-1); }
+  68% { transform: translate(20vw, 30vh) scaleX(-1); }
+  78% { transform: translate(20vw, 30vh) scaleX(1); }
+  100% { transform: translate(0, 0) scaleX(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -382,6 +402,22 @@ const base = import.meta.env.BASE_URL;
 const cadImage = document.querySelector<HTMLElement>('[data-cad-image]');
 
 if (cadImage) {
+  const drivePatty = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || cadImage.classList.contains('is-driving')) return;
+    cadImage.classList.add('is-driving');
+  };
+
+  cadImage.addEventListener('click', drivePatty);
+  cadImage.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      drivePatty();
+    }
+  });
+  cadImage.addEventListener('animationend', (event) => {
+    if (event.animationName === 'cad-image-drive') cadImage.classList.remove('is-driving');
+  });
+
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     cadImage.classList.add('is-visible');
   } else {
