@@ -4,9 +4,9 @@ import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL;
 
 const leadership = [
-  { name: 'Jacob Denny', role: 'President', major: 'Mechanical Engineering', email: 'jcdenny@ucdavis.edu', img: `${base}/images/Team/Jacob_Denny.jpg` },
-  { name: 'Zain Mustafa', role: 'Vice President', major: 'Electrical & Computer Engineering', email: 'zamustafa@ucdavis.edu', img: `${base}/images/Team/Zain_Mustafa.png` },
-  { name: 'Hannah White', role: 'Secretary', major: 'Mechanical Engineering', email: 'hawhite@ucdavis.edu', img: `${base}/images/Team/Hannah_White.jpg` },
+  { name: 'Jacob Denny', role: 'President', major: 'Mechanical Engineering', email: 'jcdenny@ucdavis.edu', linkedin: 'https://www.linkedin.com/in/jacob-denny-212a58198/', handshake: 'https://app.joinhandshake.com/profiles/jacobdenny?hscid=ad2b26b9-5697-4c89-9e3a-1c8c2ae18950', instagram: 'https://www.instagram.com/jacobcdenny/', website: 'https://jacobdenny.wixsite.com/website', img: `${base}/images/Team/Jacob_Denny.jpg` },
+  { name: 'Zain Mustafa', role: 'Vice President', major: 'Electrical & Computer Engineering', email: 'zamustafa@ucdavis.edu', linkedin: 'https://www.linkedin.com/in/zain-a-mustafa/', handshake: 'https://app.joinhandshake.com/profiles/6wkbc9?hscid=d06bd13b-09fc-4085-86f2-e0d4139bc865', img: `${base}/images/Team/Zain_Mustafa.png` },
+  { name: 'Hannah White', role: 'Secretary', major: 'Mechanical Engineering', email: 'hawhite@ucdavis.edu', linkedin: 'https://www.linkedin.com/in/hannah-white-410529338/', handshake: 'https://app.joinhandshake.com/profiles/udc8jx', instagram: 'https://www.instagram.com/drakaina24/', img: `${base}/images/Team/Hannah_White.jpg` },
 ];
 
 const subteamLeads = [
@@ -49,20 +49,33 @@ const advisors = [
       <h2 class="section-title">Leadership</h2>
       <div class="team-grid leadership-grid">
         {leadership.map(m => (
-          <div class="member-card">
-            <div class="member-photo">
-              {m.img ? (
-                <img src={m.img} alt={m.name} loading="lazy" decoding="async" />
-              ) : (
-                <div class="img-placeholder">[ {m.name} ]</div>
-              )}
+          <div class="member-card-wrap">
+            <div class="member-card" role="group" tabindex="0" aria-label={`View more information about ${m.name}`}>
+              <div class="member-photo">
+                {m.img ? (
+                  <img src={m.img} alt={m.name} loading="lazy" decoding="async" />
+                ) : (
+                  <div class="img-placeholder">[ {m.name} ]</div>
+                )}
+              </div>
+              <div class="member-info">
+                <h3 class="member-name">{m.name}</h3>
+                <p class="member-role">{m.role}</p>
+                <p class="member-major">{m.major}</p>
+                {m.email && <a class="member-email" href={`mailto:${m.email}`}>{m.email}</a>}
+              </div>
             </div>
-            <div class="member-info">
-              <h3 class="member-name">{m.name}</h3>
-              <p class="member-role">{m.role}</p>
-              <p class="member-major">{m.major}</p>
-              {m.email && <a class="member-email" href={`mailto:${m.email}`}>{m.email}</a>}
-            </div>
+            <aside class="member-detail" aria-label={`${m.name}'s links`}>
+              <p class="detail-kicker">Connect / {m.role}</p>
+              <h3 class="detail-name">{m.name}</h3>
+              <p class="detail-major">{m.major}</p>
+              <div class="detail-links">
+                <a href={m.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href={m.handshake} target="_blank" rel="noopener noreferrer">Handshake</a>
+                {m.instagram && <a href={m.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>}
+                {m.website && <a href={m.website} target="_blank" rel="noopener noreferrer">Personal Website</a>}
+              </div>
+            </aside>
           </div>
         ))}
       </div>
@@ -138,15 +151,27 @@ const advisors = [
 }
 
 .leadership-grid {
-  grid-template-columns: repeat(3, minmax(180px, 1fr));
-  max-width: 760px;
+  display: flex;
+  gap: 1.5rem;
+  max-width: none;
   margin: 2.5rem 0 0;
-  justify-items: start;
+  align-items: flex-start;
+  overflow-x: clip;
+  scrollbar-width: none;
 }
 
+.leadership-grid::-webkit-scrollbar { display: none; }
+
 .member-card {
-  width: 100%;
-  max-width: 220px;
+  appearance: none;
+  text-align: left;
+  font: inherit;
+  width: 220px;
+  height: 370px;
+  max-width: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -154,7 +179,20 @@ const advisors = [
   transition: border-color 0.2s, transform 0.2s;
 }
 
-.member-card:hover { border-color: var(--gold-dim); transform: translateY(-2px); }
+.member-card-wrap {
+  display: grid;
+  grid-template-columns: 220px 0;
+  gap: 0;
+  width: 220px;
+  flex: 0 0 220px;
+  transition: grid-template-columns 0.2s ease, width 0.2s ease, flex-basis 0.2s ease;
+}
+
+.member-card:hover,
+.member-card:focus-visible {
+  border-color: var(--gold-dim);
+  transform: translateY(-2px);
+}
 
 .member-photo { height: 200px; overflow: hidden; background: var(--surface-2); }
 
@@ -179,7 +217,10 @@ const advisors = [
   padding: 1rem;
 }
 
-.member-info { padding: 1rem 1.1rem 1.25rem; }
+.member-info {
+  flex: 1;
+  padding: 1rem 1.1rem 1.25rem;
+}
 
 .member-name {
   font-size: 0.95rem;
@@ -209,6 +250,121 @@ const advisors = [
 .member-email:hover {
   color: #003366;
   text-decoration: underline;
+}
+
+.member-detail {
+  grid-column: 2;
+  width: 280px;
+  align-self: start;
+  padding: 1.25rem;
+  border: 1px solid var(--gold-dim);
+  border-left: 3px solid var(--gold);
+  background: var(--surface-2);
+  box-shadow: 18px 18px 40px rgba(0,0,0,0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-12px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.member-detail[hidden] {
+  display: none;
+}
+
+.member-card-wrap:hover .member-detail,
+.member-card-wrap:focus-within .member-detail {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.member-card-wrap.is-dismissed .member-detail,
+.member-card-wrap.is-dismissed:hover .member-detail,
+.member-card-wrap.is-dismissed:focus-within .member-detail {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-12px);
+  pointer-events: none;
+}
+
+.member-card-wrap:hover,
+.member-card-wrap:focus-within {
+  grid-template-columns: 220px 280px;
+  gap: 1rem;
+  width: 516px;
+  flex-basis: 516px;
+}
+
+.detail-kicker {
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.detail-name {
+  color: var(--text);
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.detail-major {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.detail-links a {
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.detail-links a:hover { color: var(--text); }
+
+@media (max-width: 700px) {
+  .leadership-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    overflow-x: visible;
+  }
+  .member-card-wrap,
+  .member-card {
+    width: 100%;
+    max-width: none;
+  }
+  .member-card-wrap {
+    display: block;
+    flex: none;
+  }
+  .member-card-wrap:hover,
+  .member-card-wrap:focus-within {
+    width: 100%;
+    flex-basis: auto;
+  }
+  .member-detail {
+    position: static;
+    width: auto;
+    margin-top: 0.75rem;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .leadership-grid { grid-template-columns: 1fr; }
 }
 
 .advisors-list {
@@ -255,3 +411,34 @@ const advisors = [
   flex-wrap: wrap;
 }
 </style>
+
+<script>
+const memberCardWrappers = document.querySelectorAll<HTMLElement>('.member-card-wrap');
+
+memberCardWrappers.forEach(wrapper => {
+  const detail = wrapper.querySelector<HTMLElement>('.member-detail');
+
+  wrapper.querySelectorAll<HTMLAnchorElement>('.detail-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      wrapper.classList.add('is-dismissed');
+      detail?.setAttribute('hidden', '');
+    });
+  });
+
+  wrapper.addEventListener('mouseenter', () => {
+    wrapper.classList.remove('is-dismissed');
+    detail?.removeAttribute('hidden');
+  });
+  wrapper.addEventListener('mouseleave', () => {
+    wrapper.classList.add('is-dismissed');
+    detail?.setAttribute('hidden', '');
+  });
+  wrapper.addEventListener('focusout', event => {
+    if (!wrapper.contains(event.relatedTarget as Node | null)) {
+      wrapper.classList.remove('is-dismissed');
+      detail?.removeAttribute('hidden');
+    }
+  });
+});
+</script>
+
