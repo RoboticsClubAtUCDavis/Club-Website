@@ -133,10 +133,60 @@ h1, h2, h3, h4 {
 }
 
 .btn-primary {
+  position: relative;
+  isolation: isolate;
   background: var(--gold);
   color: #000;
 }
-.btn-primary:hover { background: #e0bc60; transform: translateY(-1px); }
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: -4px;
+  border-radius: 7px;
+  padding: 3px;
+  background: conic-gradient(
+    from calc(180deg + var(--trace-angle)),
+    var(--gold) 0deg 18deg,
+    rgba(255, 238, 166, 0.2) 25deg,
+    transparent 38deg 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px var(--gold));
+}
+
+.btn-primary:hover {
+  background: #e0bc60;
+  transform: translateY(-1px);
+}
+
+.btn-primary:hover::after {
+  opacity: 1;
+  animation: button-border-trace 1.8s linear infinite;
+}
+
+@property --trace-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes button-border-trace {
+  from { --trace-angle: 0deg; }
+  to { --trace-angle: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary:hover::after {
+    opacity: 1;
+    animation: none;
+  }
+}
 
 .btn-outline {
   background: transparent;
