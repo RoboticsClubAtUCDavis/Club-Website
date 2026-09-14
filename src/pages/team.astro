@@ -47,7 +47,7 @@ const advisors = [
     <div class="container">
       <p class="section-label">Executive Board</p>
       <h2 class="section-title">Leadership</h2>
-      <div class="team-grid leadership-grid is-entering" data-leadership-grid>
+      <div class="team-grid leadership-grid" data-leadership-grid>
         {leadership.map(m => (
           <div class="member-card-wrap">
             <div class="member-card" role="group" tabindex="0" aria-label={`View more information about ${m.name}`}>
@@ -111,7 +111,7 @@ const advisors = [
       <h2 class="section-title">Advisors</h2>
       <div class="advisors-list">
         {advisors.map(a => (
-          <div class="advisor-row">
+          <div class="advisor-row" data-advisor-row>
             <div class="advisor-photo">
               {a.img ? (
                 <img src={a.img} alt={a.name} loading="lazy" decoding="async" />
@@ -191,11 +191,14 @@ const advisors = [
 .leadership-grid .member-card-wrap {
   opacity: 0;
   transform: translateY(90px) rotate(2deg);
+}
+
+.leadership-grid.is-visible .member-card-wrap {
   animation: leadership-card-fly-in 0.45s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
 }
 
-.leadership-grid .member-card-wrap:nth-child(2) { animation-delay: 0.1s; }
-.leadership-grid .member-card-wrap:nth-child(3) { animation-delay: 0.2s; }
+.leadership-grid.is-visible .member-card-wrap:nth-child(2) { animation-delay: 0.1s; }
+.leadership-grid.is-visible .member-card-wrap:nth-child(3) { animation-delay: 0.2s; }
 
 @keyframes leadership-card-fly-in {
   to {
@@ -426,6 +429,27 @@ const advisors = [
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1.25rem;
+  opacity: 0;
+  transform: translateX(90px);
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.advisor-row.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.advisor-row:nth-child(2) {
+  transition-delay: 0.14s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .advisor-row,
+  .advisor-row.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .advisor-photo {
@@ -458,17 +482,46 @@ const advisors = [
 <script>
 const memberCardWrappers = document.querySelectorAll<HTMLElement>('.member-card-wrap');
 const leadershipGrid = document.querySelector<HTMLElement>('[data-leadership-grid]');
+const advisorRows = document.querySelectorAll<HTMLElement>('[data-advisor-row]');
+
+if (advisorRows.length) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    advisorRows.forEach(row => row.classList.add('is-visible'));
+  } else {
+    const advisorObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
+      });
+    }, { threshold: 0.2 });
+
+    advisorRows.forEach(row => advisorObserver.observe(row));
+  }
+}
 
 if (leadershipGrid) {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    leadershipGrid.classList.remove('is-entering');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lastCard = memberCardWrappers[memberCardWrappers.length - 1];
+
+  lastCard?.addEventListener('animationend', event => {
+    if (event.animationName === 'leadership-card-fly-in') {
+      leadershipGrid.classList.remove('is-entering');
+    }
+  });
+
+  if (reducedMotion) {
+    leadershipGrid.classList.add('is-visible');
   } else {
-    const lastCard = memberCardWrappers[memberCardWrappers.length - 1];
-    lastCard?.addEventListener('animationend', event => {
-      if (event.animationName === 'leadership-card-fly-in') {
-        leadershipGrid.classList.remove('is-entering');
+    const leadershipObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        leadershipGrid.classList.remove('is-visible');
+        void leadershipGrid.offsetWidth;
+        leadershipGrid.classList.add('is-entering', 'is-visible');
+      } else {
+        leadershipGrid.classList.remove('is-entering', 'is-visible');
       }
-    }, { once: true });
+    }, { threshold: 0.2 });
+
+    leadershipObserver.observe(leadershipGrid);
   }
 }
 
