@@ -130,10 +130,22 @@ const homePath = base.replace(/\/$/, '') || '/';
 }
 
 @media (max-width: 860px) {
-  .nav-toggle { display: flex; }
+  .nav { overflow-x: clip; }
+  .nav-inner {
+    padding-inline: 1.25rem;
+    overflow: hidden;
+  }
+  .nav-toggle {
+    display: flex;
+    margin-left: 0.75rem;
+  }
+  .nav-logo {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
   .nav-logo-img {
     height: 54px;
-    max-width: calc(100vw - 7rem);
+    max-width: 100%;
   }
   .nav-logo:hover .nav-logo-img { transform: none; }
   .nav-links {
