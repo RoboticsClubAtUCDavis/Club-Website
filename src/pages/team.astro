@@ -384,7 +384,8 @@ const advisors = [
     display: grid;
     grid-template-columns: minmax(0, 1fr);
   }
-  .leadership-grid .member-card-wrap {
+  .leadership-grid.is-visible .member-card-wrap,
+  .leadership-grid.is-entering .member-card-wrap {
     opacity: 1;
     transform: none;
     animation: none;
@@ -504,6 +505,7 @@ if (advisorRows.length) {
 
 if (leadershipGrid) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobileLayout = window.matchMedia('(max-width: 700px)').matches;
   const lastCard = memberCardWrappers[memberCardWrappers.length - 1];
 
   lastCard?.addEventListener('animationend', event => {
@@ -512,7 +514,7 @@ if (leadershipGrid) {
     }
   });
 
-  if (reducedMotion) {
+  if (reducedMotion || mobileLayout) {
     leadershipGrid.classList.add('is-visible');
   } else {
     const leadershipObserver = new IntersectionObserver(([entry]) => {
