@@ -382,7 +382,7 @@ const advisors = [
 @media (max-width: 700px) {
   .leadership-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     overflow-x: visible;
   }
   .leadership-grid .member-card-wrap {
@@ -394,6 +394,10 @@ const advisors = [
   .member-card {
     width: 100%;
     max-width: none;
+  }
+  .member-card {
+    height: auto;
+    min-height: 370px;
   }
   .member-card-wrap {
     display: block;
@@ -412,10 +416,6 @@ const advisors = [
     visibility: visible;
     transform: none;
   }
-}
-
-@media (max-width: 480px) {
-  .leadership-grid { grid-template-columns: 1fr; }
 }
 
 .advisors-list {
@@ -532,6 +532,8 @@ if (leadershipGrid) {
 
 memberCardWrappers.forEach(wrapper => {
   const detail = wrapper.querySelector<HTMLElement>('.member-detail');
+
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   wrapper.querySelectorAll<HTMLAnchorElement>('.detail-links a').forEach(link => {
     link.addEventListener('click', () => {
