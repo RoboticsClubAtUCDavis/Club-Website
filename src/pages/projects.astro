@@ -54,7 +54,7 @@ const projects = [
 
 <Layout title="Projects" description="Explore robotics projects built by UC Davis Robotics Club members.">
 
-  <section class="page-hero section">
+  <section class="page-hero section projects-hero" style="border-bottom:none;">
     <div class="container">
       <p class="section-label">What we build</p>
       <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Our Projects</h1>
@@ -65,7 +65,7 @@ const projects = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section projects-content">
     <div class="container">
       <div class="projects-list">
         {projects.map((p, i) => (
@@ -92,7 +92,7 @@ const projects = [
     </div>
   </section>
 
-  <section class="section training-cta" aria-labelledby="training-title">
+  <section class="section training-cta" style="background:var(--surface-2);" aria-labelledby="training-title">
     <div class="container events-cta">
       <p class="section-label">Build with confidence</p>
       <h2 class="section-title" id="training-title" style="font-size:2rem;">Want to get certified to use machinery?</h2>
@@ -120,6 +120,9 @@ const projects = [
   flex-direction: column;
   gap: 4rem;
 }
+
+.projects-hero { padding-bottom: 8px; }
+.projects-content { padding-top: 48px; }
 
 .project-row {
   display: grid;
@@ -216,7 +219,7 @@ const projects = [
 
 .events-cta { max-width: 680px; }
 
-.training-cta { border-top: 1px solid var(--border); }
+.training-cta { border-block: 1px solid var(--border); }
 
 .training-cta .cta-actions { margin-top: 1.5rem; }
 

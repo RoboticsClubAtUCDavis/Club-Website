@@ -43,7 +43,7 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
 
 <Layout title="Gallery" description="Photos from UC Davis Robotics Club — lab work, competitions, and workshops.">
 
-  <section class="page-hero section">
+  <section class="page-hero section gallery-hero" style="border-bottom:none;">
     <div class="container">
       <p class="section-label">In pictures</p>
       <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Gallery</h1>
@@ -51,7 +51,7 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
     </div>
   </section>
 
-  <section class="section">
+  <section class="section gallery-content">
     <div class="container">
 
       <!-- Category filter -->
@@ -90,7 +90,7 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
   </dialog>
 
   <!-- Submit photo CTA -->
-  <section class="section" style="background:var(--surface);border-top:1px solid var(--border);">
+  <section class="section" style="background:var(--surface-2);border-top:1px solid var(--border);">
     <div class="container" style="max-width:580px; text-align:center; margin-inline:auto;">
       <p class="section-label">Contribute</p>
       <h2 class="section-title" style="font-size:2rem;">Got a photo to share?</h2>
@@ -104,6 +104,9 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
 </Layout>
 
 <style>
+.gallery-hero { padding-bottom: 24px; }
+.gallery-content { padding-top: 48px; }
+
 .filter-bar {
   display: flex;
   flex-wrap: wrap;

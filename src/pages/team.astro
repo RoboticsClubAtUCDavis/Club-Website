@@ -34,7 +34,7 @@ const advisors = [
 
 <Layout title="Team" description="Meet the UC Davis Robotics Club leadership and members.">
 
-  <section class="page-hero section">
+  <section class="page-hero section team-hero" style="border-bottom:none;">
     <div class="container">
       <p class="section-label">The people</p>
       <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Our Team</h1>
@@ -45,7 +45,7 @@ const advisors = [
   </section>
 
   <!-- Leadership -->
-  <section class="section">
+  <section class="section team-content">
     <div class="container">
       <p class="section-label">Executive Board</p>
       <h2 class="section-title">Leadership</h2>
@@ -145,6 +145,9 @@ const advisors = [
 </Layout>
 
 <style>
+.team-hero { padding-bottom: 24px; }
+.team-content { padding-top: 48px; }
+
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

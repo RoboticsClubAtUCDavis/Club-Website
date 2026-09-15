@@ -67,7 +67,7 @@ const pastWorkshops = [
       </p>
       <div class="event-list">
         {futureEvents.map(event => (
-          <article class="event-row">
+          <article class="event-row" data-event-row>
             <div class="event-date-col">
               <p class="event-date">{event.date}</p>
               <p class="event-time">{event.time}</p>
@@ -118,7 +118,7 @@ const pastWorkshops = [
   </section> 
   -->
 
-  <section class="section">
+  <section class="section" style="background:var(--surface-2); border-block:1px solid var(--border);">
     <div class="container events-cta">
       <p class="section-label">Stay updated</p>
       <h2 class="section-title" style="font-size:2rem;">Want event announcements?</h2>
@@ -151,11 +151,49 @@ const pastWorkshops = [
   padding: 1.4rem 1.75rem;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.2s ease;
+}
+
+.event-date-col,
+.event-info,
+.event-badge {
+  opacity: 0;
+  transform: translateY(70px);
+}
+
+.event-row.is-visible .event-date-col,
+.event-row.is-visible .event-info,
+.event-row.is-visible .event-badge {
+  animation: event-row-fly-in 0.65s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+}
+
+.event-row:nth-child(2) .event-date-col,
+.event-row:nth-child(2) .event-info,
+.event-row:nth-child(2) .event-badge { animation-delay: 0.12s; }
+.event-row:nth-child(3) .event-date-col,
+.event-row:nth-child(3) .event-info,
+.event-row:nth-child(3) .event-badge { animation-delay: 0.24s; }
+.event-row:nth-child(4) .event-date-col,
+.event-row:nth-child(4) .event-info,
+.event-row:nth-child(4) .event-badge { animation-delay: 0.36s; }
+.event-row:nth-child(5) .event-date-col,
+.event-row:nth-child(5) .event-info,
+.event-row:nth-child(5) .event-badge { animation-delay: 0.48s; }
+
+@keyframes event-row-fly-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .event-row:last-child { border-bottom: none; }
-.event-row:hover { background: var(--surface-2); }
+.event-row:hover {
+  background: var(--surface-2);
+  transform: scale(1.02);
+  position: relative;
+  z-index: 1;
+}
 
 .event-date {
   font-family: var(--font-display);
@@ -293,4 +331,35 @@ const pastWorkshops = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .event-date-col,
+  .event-info,
+  .event-badge {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
 </style>
+
+<script>
+  const eventRows = document.querySelectorAll<HTMLElement>('[data-event-row]');
+
+  if (eventRows.length) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      eventRows.forEach(row => row.classList.add('is-visible'));
+    } else {
+      const eventObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            eventRows.forEach(row => row.classList.add('is-visible'));
+            eventObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.1 });
+
+      eventRows.forEach(row => eventObserver.observe(row));
+    }
+  }
+</script>
