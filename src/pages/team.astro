@@ -20,11 +20,13 @@ const advisors = [
   {
     name: 'Zhaodan Kong',
     dept: 'Mechanical & Aerospace Engineering',
+    website: 'https://mae.ucdavis.edu/directory/zhaodan-kong',
     img: `${base}images/kong.jpg`,
   },
   {
     name: 'Stavros Vougioukas',
     dept: 'Biological and Agricultural Engineering',
+    website: 'https://bae.ucdavis.edu/people/stavros-vougioukas',
     img: `${base}images/vougioukas.jpg`,
   },
 ];
@@ -111,7 +113,7 @@ const advisors = [
       <h2 class="section-title">Advisors</h2>
       <div class="advisors-list">
         {advisors.map(a => (
-          <div class="advisor-row" data-advisor-row>
+          <a class="advisor-row" data-advisor-row href={a.website} target="_blank" rel="noopener noreferrer">
             <div class="advisor-photo">
               {a.img ? (
                 <img src={a.img} alt={a.name} loading="lazy" decoding="async" />
@@ -123,7 +125,7 @@ const advisors = [
               <h3 class="advisor-name">{a.name}</h3>
               <p class="advisor-dept">{a.dept}</p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -444,6 +446,15 @@ const advisors = [
   transform: translateX(0);
 }
 
+.advisor-row.is-visible:hover,
+.advisor-row.is-visible:focus-visible {
+  border-color: var(--gold-dim);
+  transform: translateX(0) scale(1.03);
+  outline: none;
+  position: relative;
+  z-index: 1;
+}
+
 .advisor-row:nth-child(2) {
   transition-delay: 0.14s;
 }
@@ -474,6 +485,7 @@ const advisors = [
 
 .advisor-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
 .advisor-dept { font-size: 0.8rem; color: var(--text-muted); }
+.advisor-row { color: inherit; text-decoration: none; }
 
 .cta-inner {
   display: flex;
