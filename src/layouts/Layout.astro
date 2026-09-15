@@ -63,10 +63,42 @@ const organizationSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
   <body>
+    <div class="site-gears" aria-hidden="true">
+      <div class="gear-rail gear-rail-left">
+        <img class="gear gear-left-large" src={`${base}images/Gear.png`} alt="" />
+        <img class="gear gear-left-small" src={`${base}images/Gear.png`} alt="" />
+        <img class="gear gear-left-middle" src={`${base}images/Gear.png`} alt="" />
+      </div>
+      <div class="gear-rail gear-rail-right">
+        <img class="gear gear-right-small" src={`${base}images/Gear.png`} alt="" />
+        <img class="gear gear-right-large" src={`${base}images/Gear.png`} alt="" />
+        <img class="gear gear-right-middle" src={`${base}images/Gear.png`} alt="" />
+      </div>
+    </div>
     <Nav />
     <main>
       <slot />
     </main>
     <Footer />
+    <script>
+      const gearRails = document.querySelectorAll<HTMLElement>('.gear-rail');
+
+      gearRails.forEach(rail => {
+        const isLeftRail = rail.classList.contains('gear-rail-left');
+        const topZones = isLeftRail
+          ? [[2, 20], [36, 56], [72, 90]]
+          : [[16, 34], [52, 72], [82, 98]];
+
+        rail.querySelectorAll<HTMLElement>('.gear').forEach((gear, index) => {
+          const [minTop, maxTop] = topZones[index];
+          const top = minTop + Math.random() * (maxTop - minTop);
+          const edgeOffset = -12 + Math.random() * 18;
+          const scale = 0.5 + Math.random() * 2;
+          gear.style.top = `${top}%`;
+          gear.style.setProperty('--gear-edge-offset', `${edgeOffset}rem`);
+          gear.style.setProperty('--gear-scale', scale.toFixed(2));
+        });
+      });
+    </script>
   </body>
 </html>
