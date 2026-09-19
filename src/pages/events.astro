@@ -121,13 +121,15 @@ const eventBannerImages = [
           ))}
         </div>
       </div>
-      <p class="section-label">Schedule</p>
-      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Upcoming Events</h1>
-      <p class="section-body">
-        Future club meetings, workshops, and project sessions. Check back for confirmed
-        dates and room numbers as they are announced.
-      </p>
-      <div class="event-list" data-upcoming-events>
+      <div class="events-intro">
+        <p class="section-label">Schedule</p>
+        <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Upcoming Events</h1>
+        <p class="section-body">
+          Future club meetings, workshops, and project sessions. Check back for confirmed
+          dates and room numbers as they are announced.
+        </p>
+      </div>
+      <div class="event-list upcoming-event-list" data-upcoming-events>
         {futureEvents.map(event => (
           <article class="event-row" data-event-row data-end-time={event.endAt}>
             <div class="event-date-col">
@@ -205,6 +207,28 @@ const eventBannerImages = [
   overflow: hidden;
   border-radius: 8px;
   background: var(--surface);
+  opacity: 0;
+  transform: translateY(70px);
+  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.05s forwards;
+}
+
+.events-intro {
+  opacity: 0;
+  transform: translateY(70px);
+  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.35s forwards;
+}
+
+.upcoming-event-list {
+  opacity: 0;
+  transform: translateY(70px);
+  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.65s forwards;
+}
+
+@keyframes events-content-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .events-page-hero {
@@ -411,6 +435,14 @@ const eventBannerImages = [
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .events-banner,
+  .events-intro,
+  .upcoming-event-list {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
   .events-banner-track,
   .events-banner img {
     transition: none;
