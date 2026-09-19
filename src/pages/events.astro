@@ -1,4 +1,4 @@
----
+--- // Opening boundary for javascript/typescript
 import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL;
@@ -6,7 +6,7 @@ const base = import.meta.env.BASE_URL;
 /*
 Notes
 1. Events are sorted by date, so make sure to add new events in the correct order. Older events are on the top of the list and will be moved to the past events section once they have passed.
-2. To add another event, you can you the following template:
+2. To add another event, you can use the following template:
   {
     title: '[Insert Event Title]',
     date: '[Weekday], [Abbreviated Month] [Day]',
@@ -97,17 +97,30 @@ const futureEvents = [
 
 ];
 
-const pastWorkshops = [
-  { title: 'Soldering Fundamentals', img: '[ soldering workshop ]' },
-  { title: 'Arduino Crash Course', img: '[ arduino workshop ]' },
-  { title: 'PID Control Theory', img: '[ PID workshop ]' },
-  { title: 'Intro to SLAM', img: '[ SLAM workshop ]' },
+const eventBannerImages = [
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_1.jpg`, alt: 'Robotics Club members at the Engineering Club Fair' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_2.jpg`, alt: 'Students visiting the Robotics Club table' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_3.jpg`, alt: 'Robotics Club projects on display at the fair' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_4.jpg`, alt: 'Visitors exploring the Robotics Club booth' },
 ];
----
+
+--- // Closing boundary for javascript/typescript
 
 <Layout title="Events" description="Future events and past workshops from UC Davis Robotics Club.">
-  <section class="page-hero section">
+  <section class="page-hero section events-page-hero">
     <div class="container">
+      <div class="events-banner" aria-label="Photos from the Engineering Club Fair">
+        <div class="events-banner-track" data-event-banner-track>
+          {[...eventBannerImages, ...eventBannerImages].map((image, index) => (
+            <img
+              src={image.src}
+              alt={image.alt}
+              data-event-banner-image
+              data-slide-index={index}
+            />
+          ))}
+        </div>
+      </div>
       <p class="section-label">Schedule</p>
       <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Upcoming Events</h1>
       <p class="section-body">
@@ -182,6 +195,36 @@ const pastWorkshops = [
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
+}
+
+.events-banner {
+  position: relative;
+  width: min(100%, 760px);
+  aspect-ratio: 4 / 3;
+  margin: 0 auto 2rem;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.events-page-hero {
+  padding-top: calc(var(--nav-h) + 24px);
+}
+
+.events-banner-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.events-banner img {
+  flex: 0 0 100%;
+  display: block;
+  min-width: 0;
+  height: 100%;
+  object-fit: contain;
+  opacity: 1;
 }
 
 .event-row {
@@ -368,6 +411,12 @@ const pastWorkshops = [
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .events-banner-track,
+  .events-banner img {
+    transition: none;
+  }
+
+
   .event-date-col,
   .event-info,
   .event-badge {
@@ -379,6 +428,43 @@ const pastWorkshops = [
 </style>
 
 <script>
+  const bannerTrack = document.querySelector<HTMLElement>('[data-event-banner-track]');
+  const bannerImages = bannerTrack
+    ? Array.from(bannerTrack.querySelectorAll<HTMLElement>('[data-event-banner-image]'))
+    : [];
+  const bannerImageCount = bannerImages.length / 2;
+  let bannerPosition = 0;
+
+  const updateBanner = (animate = true) => {
+    if (!bannerTrack || bannerImages.length === 0) return;
+
+    const imageWidth = bannerImages[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(bannerTrack).gap) || 0;
+    bannerTrack.style.transition = animate ? '' : 'none';
+    bannerTrack.style.transform = `translateX(-${bannerPosition * (imageWidth + gap)}px)`;
+    bannerImages.forEach((image, index) => {
+      image.classList.toggle('is-focal', index === bannerPosition);
+    });
+  };
+
+  updateBanner(false);
+
+  if (bannerTrack && bannerImages.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.setInterval(() => {
+      bannerPosition += 1;
+      updateBanner();
+
+      if (bannerPosition === bannerImageCount) {
+        window.setTimeout(() => {
+          bannerPosition = 0;
+          updateBanner(false);
+        }, 750);
+      }
+    }, 5000);
+  }
+
+  window.addEventListener('resize', () => updateBanner(false));
+
   const upcomingEvents = document.querySelector<HTMLElement>('[data-upcoming-events]');
   const pastEvents = document.querySelector<HTMLElement>('[data-past-events]');
   const pastEmpty = document.querySelector<HTMLElement>('[data-past-empty]');
