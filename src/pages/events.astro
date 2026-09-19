@@ -3,15 +3,48 @@ import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL;
 
+/*
+Notes
+1. Events are sorted by date, so make sure to add new events in the correct order. Older events are on the top of the list and will be moved to the past events section once they have passed.
+2. To add another event, you can you the following template:
+  {
+    title: '[Insert Event Title]',
+    date: '[Weekday], [Abbreviated Month] [Day]',
+    time: '##:##am-##:##pm',
+    endAt: 'YYYY-MM-DDTHH:MM:SS-07:00' (PDT) or 'YYYY-MM-DDTHH:MM:SS-08:00' (PST),
+    location: 'Location',
+    mapUrl: 'Google Maps URL',
+    tag: 'Tag',
+    desc: "Description", (Use double quotes if you want to include apostrophes in the text)
+    linkText: 'Text for the link', (Optional)
+    linkUrl: 'URL for the link', (Optional)
+  },
+*/
+
+
 const futureEvents = [
   {
     title: 'Orientation - Engineering Club Fair',
     date: 'Friday, Sept. 18th',
-    time: '9:45am-11am',
+    time: '9:45am-11:00am',
+    endAt: '2026-09-18T11:00:00-07:00',
     location: 'UC Davis, Bainer Lawn',
     mapUrl: 'https://maps.app.goo.gl/VZyFSgZ1ZBdjvaYo6',
     tag: 'School Events',
     desc: 'Welcome Freshmen and Transfers! Stop by our table at this event to learn more about our club.',
+  },
+
+  {
+    title: 'RC Swap Meet - ACE Hobby Shop',
+    date: 'Sunday, Sept. 20th',
+    time: '8:00am-1:00pm',
+    endAt: '2026-09-20T13:00:00-07:00',
+    location: 'Vacaville - ACE Hobby Shop - 825 Davis St Suite, D, Vacaville, CA 95687',
+    mapUrl: 'https://maps.app.goo.gl/VT2z1kiUiAUyztrAA',
+    tag: 'Community Events',
+    desc: "Ace Hobby Shop is hosting an RC Swap Meet in Vacaville—a great chance to score RC cars, planes, drones, motors, ESCs, and batteries at around half the typical used market price. Whether you need parts for club projects or personal builds don't miss out on this opportunity! (Note: Davis Robotics Club is not affiliated with or hosting this event—just sharing a great local resource!)",
+    linkText: 'Click here to learn more about this event.',
+    linkUrl: 'https://www.facebook.com/groups/1428062074081201/permalink/4321747794712600/?sale_post_id=4321747794712600',
   },
  
    {
@@ -26,7 +59,8 @@ const futureEvents = [
   {
     title: 'Fall Involvement Fair',
     date: 'Tuesday, Oct. 13th',
-    time: '12pm-3pm',
+    time: '12:00pm-3:00pm',
+    endAt: '2026-10-13T15:00:00-07:00',
     location: 'UC Davis, Memorial Union Quad & Patio',
     mapUrl: 'https://maps.app.goo.gl/EX3HcpJumMpgWEnH7',
     tag: 'School Events',
@@ -38,7 +72,8 @@ const futureEvents = [
      {
     title: 'IRL Fall Brawl',
     date: 'Saturday, Oct. 24th',
-    time: '7:30am-4pm',
+    time: '7:30am-4:00pm',
+    endAt: '2026-10-24T16:00:00-07:00',
     location: 'Sierra College Cafeteria, Rocklin, CA',
     mapUrl: 'https://maps.app.goo.gl/bq1q2vSr1DXwJejN6',
     tag: 'Competition',
@@ -50,7 +85,8 @@ const futureEvents = [
        {
     title: 'NorCal Robotics Expo',
     date: 'Saturday, Nov. 21st',
-    time: '7am-5pm',
+    time: '7:00am-5:00pm',
+    endAt: '2026-11-21T17:00:00-08:00',
     location: 'Sierra College, Rocklin, CA',
     mapUrl: 'https://maps.app.goo.gl/bq1q2vSr1DXwJejN6',
     tag: 'Competition',
@@ -72,15 +108,15 @@ const pastWorkshops = [
 <Layout title="Events" description="Future events and past workshops from UC Davis Robotics Club.">
   <section class="page-hero section">
     <div class="container">
-      <p class="section-label">Upcoming</p>
-      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Events</h1>
+      <p class="section-label">Schedule</p>
+      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Upcoming Events</h1>
       <p class="section-body">
         Future club meetings, workshops, and project sessions. Check back for confirmed
         dates and room numbers as they are announced.
       </p>
-      <div class="event-list">
+      <div class="event-list" data-upcoming-events>
         {futureEvents.map(event => (
-          <article class="event-row" data-event-row>
+          <article class="event-row" data-event-row data-end-time={event.endAt}>
             <div class="event-date-col">
               <p class="event-date">{event.date}</p>
               <p class="event-time">{event.time}</p>
@@ -113,23 +149,15 @@ const pastWorkshops = [
     </div>
   </section>
 
-<!-- ! Past Workshops Section -->
- <!-- 
- <section class="section events-band">
+  <section class="section events-band">
     <div class="container">
       <p class="section-label">Archive</p>
-      <h2 class="section-title">Past Workshops</h2>
-      <div class="past-grid">
-        {pastWorkshops.map(workshop => (
-          <div class="past-card">
-            <div class="img-placeholder past-img">{workshop.img}</div>
-            <p class="past-title">{workshop.title}</p>
-          </div>
-        ))}
+      <h2 class="section-title">Recent Events</h2>
+      <div class="event-list" data-past-events>
+        <p class="past-empty" data-past-empty>No past events yet.</p>
       </div>
     </div>
-  </section> 
-  -->
+  </section>
 
   <section class="section" style="background:var(--surface-2); border-block:1px solid var(--border);">
     <div class="container events-cta">
@@ -294,25 +322,22 @@ const pastWorkshops = [
   border-color: rgba(34, 197, 94, 0.3);
 }
 
+.event-badge[data-tag='community events'] {
+  background: rgba(163, 118, 22, 0.12);
+  color: #e69927;
+  border-color: rgba(197, 132, 34, 0.3);
+}
+
 .events-band {
   background: var(--surface);
   border-block: 1px solid var(--border);
 }
 
-.past-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
-  margin-top: 2.5rem;
+.past-empty {
+  padding: 1.4rem 1.75rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }
-
-.past-card { display: flex; flex-direction: column; gap: 0.75rem; }
-.past-img {
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  border-radius: 6px;
-}
-.past-title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
 
 .events-cta {
   max-width: 680px;
@@ -340,9 +365,6 @@ const pastWorkshops = [
     width: fit-content;
   }
 
-  .past-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -357,6 +379,25 @@ const pastWorkshops = [
 </style>
 
 <script>
+  const upcomingEvents = document.querySelector<HTMLElement>('[data-upcoming-events]');
+  const pastEvents = document.querySelector<HTMLElement>('[data-past-events]');
+  const pastEmpty = document.querySelector<HTMLElement>('[data-past-empty]');
+
+  const movePastEvents = () => {
+    if (!upcomingEvents || !pastEvents || !pastEmpty) return;
+
+    upcomingEvents.querySelectorAll<HTMLElement>('[data-event-row]').forEach(row => {
+      const endTime = row.dataset.endTime;
+      if (endTime && new Date(endTime).getTime() <= Date.now()) {
+        pastEvents.appendChild(row);
+      }
+    });
+
+    pastEmpty.hidden = pastEvents.querySelector('[data-event-row]') !== null;
+  };
+
+  movePastEvents();
+
   const eventRows = document.querySelectorAll<HTMLElement>('[data-event-row]');
 
   if (eventRows.length) {
@@ -374,5 +415,14 @@ const pastWorkshops = [
 
       eventRows.forEach(row => eventObserver.observe(row));
     }
+  }
+
+  const nextEventEnd = Array.from(document.querySelectorAll<HTMLElement>('[data-event-row]'))
+    .map(row => row.dataset.endTime ? new Date(row.dataset.endTime).getTime() : Infinity)
+    .filter(endTime => endTime > Date.now())
+    .sort((first, second) => first - second)[0];
+
+  if (nextEventEnd) {
+    window.setTimeout(() => window.location.reload(), nextEventEnd - Date.now() + 100);
   }
 </script>
