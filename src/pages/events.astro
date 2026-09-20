@@ -98,10 +98,10 @@ const futureEvents = [
 ];
 
 const eventBannerImages = [
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_1.jpg`, alt: 'Robotics Club members at the Engineering Club Fair' },
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_2.jpg`, alt: 'Students visiting the Robotics Club table' },
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_3.jpg`, alt: 'Robotics Club projects on display at the fair' },
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_4.jpg`, alt: 'Visitors exploring the Robotics Club booth' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_1.jpg`, alt: 'New students talking to president and vice president at the Engineering Club Fair' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_2.jpg`, alt: 'View of other tables at the Engineering Club Fair' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_3.jpg`, alt: 'New students talking to the president of the Robotics Club' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_4.jpg`, alt: 'Executive secretary sitting at prepared Robotics Club table' },
 ];
 
 --- // Closing boundary for javascript/typescript
@@ -205,8 +205,6 @@ const eventBannerImages = [
   aspect-ratio: 4 / 3;
   margin: 0 auto 2rem;
   overflow: hidden;
-  border-radius: 8px;
-  background: var(--surface);
   opacity: 0;
   transform: translateY(70px);
   animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.05s forwards;
@@ -248,6 +246,7 @@ const eventBannerImages = [
   min-width: 0;
   height: 100%;
   object-fit: contain;
+  border-radius: 8px;
   opacity: 1;
 }
 
