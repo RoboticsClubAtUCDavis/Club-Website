@@ -111,18 +111,6 @@ const eventBannerImages = [
 <Layout title="Events" description="Future events and past workshops from UC Davis Robotics Club.">
   <section class="page-hero section events-page-hero">
     <div class="container">
-      <div class="events-banner" aria-label="Photos from the Engineering Club Fair">
-        <div class="events-banner-track" data-event-banner-track>
-          {[...eventBannerImages, ...eventBannerImages].map((image, index) => (
-            <img
-              src={image.src}
-              alt={image.alt}
-              data-event-banner-image
-              data-slide-index={index}
-            />
-          ))}
-        </div>
-      </div>
       <div class="events-intro">
         <p class="section-label">Schedule</p>
         <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Upcoming Events</h1>
@@ -163,6 +151,32 @@ const eventBannerImages = [
           </article>
         ))}
       </div>
+      <div class="events-banner" role="region" aria-label="Photos from the Engineering Club Fair">
+        <div class="events-banner-stage">
+          <div class="events-banner-track" data-event-banner-track>
+            {[...eventBannerImages, ...eventBannerImages, ...eventBannerImages].map((image, index) => (
+              <img
+                src={image.src}
+                alt={image.alt}
+                aria-hidden={index < eventBannerImages.length || index >= eventBannerImages.length * 2 ? 'true' : undefined}
+                data-event-banner-image
+                data-slide-index={index}
+              />
+            ))}
+          </div>
+        </div>
+        <div class="events-banner-dots" role="group" aria-label="Select a photo">
+          {eventBannerImages.map((image, index) => (
+            <button
+              class="events-banner-dot"
+              type="button"
+              aria-label={`Show photo ${index + 1}`}
+              aria-current={index === 0 ? 'true' : undefined}
+              data-event-banner-dot={index}
+            ></button>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 
@@ -202,26 +216,31 @@ const eventBannerImages = [
 }
 
 .events-banner {
-  position: relative;
-  width: min(100%, 760px);
-  aspect-ratio: 4 / 3;
-  margin: 0 auto 2rem;
-  overflow: hidden;
+  width: min(100%, 900px);
+  margin: 2rem auto 2rem;
   opacity: 0;
   transform: translateY(70px);
-  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.05s forwards;
+  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.85s forwards;
+}
+
+.events-banner-stage {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.08) 3%, rgba(0, 0, 0, 0.28) 7%, rgba(0, 0, 0, 0.65) 11%, #000 15%, #000 85%, rgba(0, 0, 0, 0.65) 89%, rgba(0, 0, 0, 0.28) 93%, rgba(0, 0, 0, 0.08) 97%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.08) 3%, rgba(0, 0, 0, 0.28) 7%, rgba(0, 0, 0, 0.65) 11%, #000 15%, #000 85%, rgba(0, 0, 0, 0.65) 89%, rgba(0, 0, 0, 0.28) 93%, rgba(0, 0, 0, 0.08) 97%, transparent 100%);
 }
 
 .events-intro {
   opacity: 0;
   transform: translateY(70px);
-  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.35s forwards;
+  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.05s forwards;
 }
 
 .upcoming-event-list {
   opacity: 0;
   transform: translateY(70px);
-  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.65s forwards;
+  animation: events-content-rise 0.7s cubic-bezier(0.2, 0.75, 0.25, 1) 0.35s forwards;
 }
 
 @keyframes events-content-rise {
@@ -237,19 +256,67 @@ const eventBannerImages = [
 
 .events-banner-track {
   display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1rem);
   width: 100%;
   height: 100%;
   transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.25, 1);
 }
 
 .events-banner img {
-  flex: 0 0 100%;
+  flex: 0 0 70%;
   display: block;
   min-width: 0;
   height: 100%;
   object-fit: contain;
   border-radius: 8px;
+  opacity: 0.38;
+  transform: scale(0.9);
+  transition: opacity 0.35s, transform 0.35s;
+}
+
+.events-banner img.is-focal {
   opacity: 1;
+  transform: scale(1);
+}
+
+.events-banner-dots {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.events-banner-dot {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.events-banner-dot::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  content: '';
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.events-banner-dot:hover::before,
+.events-banner-dot[aria-current='true']::before {
+  transform: scale(1.6);
+  background: var(--gold);
+}
+
+.events-banner-dot:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: -2px;
 }
 
 .event-row {
@@ -449,6 +516,10 @@ const eventBannerImages = [
     transition: none;
   }
 
+  .events-banner-dot::before {
+    transition: none;
+  }
+
 
   .event-date-col,
   .event-info,
@@ -465,35 +536,73 @@ const eventBannerImages = [
   const bannerImages = bannerTrack
     ? Array.from(bannerTrack.querySelectorAll<HTMLElement>('[data-event-banner-image]'))
     : [];
-  const bannerImageCount = bannerImages.length / 2;
-  let bannerPosition = 0;
+  const bannerImageCount = bannerImages.length / 3;
+  const bannerDots = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-event-banner-dot]'));
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let bannerPosition = bannerImageCount;
+  let bannerMoveLocked = false;
+  let bannerMoveTimer: number | undefined;
 
   const updateBanner = (animate = true) => {
     if (!bannerTrack || bannerImages.length === 0) return;
 
-    const imageWidth = bannerImages[0].getBoundingClientRect().width;
+    const imageWidth = bannerImages[0].offsetWidth;
     const gap = parseFloat(getComputedStyle(bannerTrack).gap) || 0;
+    const stageWidth = bannerTrack.parentElement?.clientWidth ?? imageWidth;
+    const centerOffset = (stageWidth - imageWidth) / 2;
     bannerTrack.style.transition = animate ? '' : 'none';
-    bannerTrack.style.transform = `translateX(-${bannerPosition * (imageWidth + gap)}px)`;
+    bannerTrack.style.transform = `translateX(-${bannerPosition * (imageWidth + gap) - centerOffset}px)`;
     bannerImages.forEach((image, index) => {
       image.classList.toggle('is-focal', index === bannerPosition);
     });
+    const currentSlide = ((bannerPosition - bannerImageCount) % bannerImageCount + bannerImageCount) % bannerImageCount;
+    bannerDots.forEach((dot, index) => {
+      dot.setAttribute('aria-current', index === currentSlide ? 'true' : 'false');
+    });
   };
+
+  const finishBannerMove = () => {
+    if (bannerPosition >= bannerImageCount * 2) {
+      bannerPosition = bannerImageCount;
+      updateBanner(false);
+    } else if (bannerPosition < bannerImageCount) {
+      bannerPosition = bannerImageCount * 2 - 1;
+      updateBanner(false);
+    }
+    bannerMoveLocked = false;
+    bannerMoveTimer = undefined;
+  };
+
+  const moveBanner = (direction: number) => {
+    if (!bannerTrack || bannerImageCount === 0 || bannerMoveLocked) return;
+
+    bannerMoveLocked = true;
+    bannerPosition += direction;
+    updateBanner();
+    bannerMoveTimer = window.setTimeout(finishBannerMove, prefersReducedMotion ? 0 : 750);
+  };
+
+  const selectBanner = (index: number) => {
+    if (!bannerTrack || bannerMoveLocked) return;
+
+    bannerPosition = bannerImageCount + index;
+    updateBanner();
+    bannerMoveLocked = true;
+    bannerMoveTimer = window.setTimeout(finishBannerMove, prefersReducedMotion ? 0 : 750);
+  };
+
+  bannerDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      if (bannerMoveTimer !== undefined) window.clearTimeout(bannerMoveTimer);
+      bannerMoveLocked = false;
+      selectBanner(index);
+    });
+  });
 
   updateBanner(false);
 
-  if (bannerTrack && bannerImages.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    window.setInterval(() => {
-      bannerPosition += 1;
-      updateBanner();
-
-      if (bannerPosition === bannerImageCount) {
-        window.setTimeout(() => {
-          bannerPosition = 0;
-          updateBanner(false);
-        }, 750);
-      }
-    }, 5000);
+  if (bannerTrack && bannerImageCount > 0 && !prefersReducedMotion) {
+    window.setInterval(() => moveBanner(1), 5000);
   }
 
   window.addEventListener('resize', () => updateBanner(false));
