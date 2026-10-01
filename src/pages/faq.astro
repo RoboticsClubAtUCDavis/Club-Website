@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+  {
+    question: 'Do I need prior coding or shop experience?',
+    answer: 'No. You do not need prior coding, robotics, or machine shop experience. Members learn as they go, and experienced teammates can help you get started.',
+  },
+  {
+    question: 'What majors can join?',
+    answer: 'All majors are welcome. Robotics brings together people with interests in engineering, programming, design, business, outreach, and many other fields.',
+  },
+  {
+    question: 'Are there club dues?',
+    answer: 'Membership is completely free. Club-sponsored group projects are funded by the team; members are only responsible for the cost of parts for individual personal builds and competitions.',
+  },
+  {
+    question: 'What is the weekly time commitment?',
+    answer: 'The weekly time commitment is still to be determined. We will share more once the schedule is finalized.',
+  },
+];
+---
+
+<Layout title="FAQ" description="Answers to common questions about joining the UC Davis Robotics Club.">
+  <section class="page-hero section faq-hero">
+    <div class="container">
+      <p class="section-label">New to robotics?</p>
+      <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Frequently Asked Questions</h1>
+      <p class="section-body">Find out what to expect before joining the Davis Robotics Club.</p>
+    </div>
+  </section>
+
+  <section class="section faq-section" aria-label="Common questions">
+    <div class="container faq-container">
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary>{faq.question}</summary>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+.faq-hero {
+  padding-bottom: 8px;
+}
+
+.faq-container {
+  max-width: 900px;
+}
+
+.faq-list {
+  border-top: 1px solid var(--border);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  flex: 0 0 auto;
+  color: var(--gold);
+  content: '+';
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.faq-item[open] summary::after {
+  content: '-';
+}
+
+.faq-item summary:hover {
+  color: var(--gold);
+}
+
+.faq-item summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.faq-answer {
+  padding: 0 2.5rem 1.4rem 0;
+}
+
+.faq-answer p {
+  max-width: 68ch;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .faq-item summary {
+    gap: 1rem;
+    font-size: 1rem;
+  }
+
+  .faq-answer {
+    padding-right: 1.5rem;
+  }
+}
+</style>
