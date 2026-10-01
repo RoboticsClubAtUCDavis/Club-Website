@@ -40,6 +40,11 @@ const base = import.meta.env.BASE_URL;
         <a href="https://discord.gg/XA3rYvC9A9" target="_blank" rel="noopener">Discord</a>
         <a href="https://www.instagram.com/davisrobotics/" target="_blank" rel="noopener">Instagram</a>
       </div>
+      <div class="footer-col footer-partnerships">
+        <p class="footer-col-title">Partnerships</p>
+        <p>Interested in collaborating with the club?</p>
+        <a class="footer-contact-button" href={`${base}contact`}>Contact Us</a>
+      </div>
     </nav>
   </div>
 
@@ -189,6 +194,35 @@ const base = import.meta.env.BASE_URL;
   transition: color 0.15s;
 }
 .footer-col a:hover { color: var(--text); }
+
+.footer-partnerships {
+  max-width: 220px;
+}
+
+.footer-partnerships p:not(.footer-col-title) {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.footer-col a.footer-contact-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 0.8rem;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.footer-col a.footer-contact-button:hover {
+  border-color: var(--gold-dim);
+  color: var(--gold);
+}
 
 .footer-bottom {
   display: flex;
