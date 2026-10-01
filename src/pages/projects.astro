@@ -63,6 +63,16 @@ const projects = [
         From combat robots to drones — every project is designed, built,
         and tested by students at Davis.
       </p>
+      <aside class="member-project-banner" aria-labelledby="member-project-title">
+        <div>
+          <p class="section-label">Member feature</p>
+          <h2 id="member-project-title">Give your project a page of its own</h2>
+          <p>
+            Members can be featured on the club website with a page about who they are and a project they built through the club.
+          </p>
+        </div>
+        <a href={`${base}contact`} class="btn btn-outline">Ask about being featured</a>
+      </aside>
     </div>
   </section>
 
@@ -124,6 +134,39 @@ const projects = [
 
 .projects-hero { padding-bottom: 8px; }
 .projects-content { padding-top: 48px; }
+
+.member-project-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: var(--surface-2);
+}
+
+.member-project-banner .section-label {
+  margin-bottom: 0.5rem;
+}
+
+.member-project-banner h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.member-project-banner p:not(.section-label) {
+  max-width: 58ch;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.member-project-banner .btn {
+  flex: 0 0 auto;
+}
 
 .project-row {
   display: grid;
@@ -231,6 +274,13 @@ const projects = [
 }
 
 @media (max-width: 700px) {
+  .member-project-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+
   .project-row { grid-template-columns: 1fr; }
   .project-row:nth-child(even) .project-img-wrap { order: 0; }
   .project-row:nth-child(even) .project-detail { order: 0; }
