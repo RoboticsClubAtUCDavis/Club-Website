@@ -1,6 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL;
+const meetingCalendarUrl = new URL('https://calendar.google.com/calendar/render');
+meetingCalendarUrl.searchParams.set('action', 'TEMPLATE');
+meetingCalendarUrl.searchParams.set('text', 'Davis Robotics Club First Meeting');
+meetingCalendarUrl.searchParams.set('dates', '20261003T210000Z/20261003T230000Z');
+meetingCalendarUrl.searchParams.set('details', 'Kick off the school year with the Davis Robotics Club. Meet the officer board, explore the year roadmap, and learn how to get involved.');
+meetingCalendarUrl.searchParams.set('location', 'Teaching and Learning Complex, Room 2010, UC Davis, Davis, CA');
 ---
 
 <Layout
@@ -11,6 +17,28 @@ const base = import.meta.env.BASE_URL;
   <!-- ── HERO ── -->
   <section class="hero">
     <div class="hero-bg"></div>
+    <div
+      class="container meeting-announcement"
+      data-meeting-announcement
+      data-expires-at="2026-10-03T16:00:00-07:00"
+      aria-label="Upcoming Robotics Club meeting"
+    >
+      <div class="meeting-banner">
+        <div>
+          <p class="meeting-banner-kicker">Saturday, October 3</p>
+          <h2>First Club Meeting</h2>
+          <p class="meeting-banner-details">2:00 PM · Teaching &amp; Learning Complex, Room 2010</p>
+        </div>
+        <div class="meeting-actions">
+          <a class="meeting-calendar-link" href={meetingCalendarUrl.href} target="_blank" rel="noopener noreferrer">
+            Add to Google Calendar
+          </a>
+          <a href="https://discord.gg/XA3rYvC9A9" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Join our Discord
+          </a>
+        </div>
+      </div>
+    </div>
     <div class="container hero-top">
       <div class="hero-content">
         <p class="hero-eyebrow">UC Davis · Est. 2014</p>
@@ -116,6 +144,77 @@ const base = import.meta.env.BASE_URL;
   padding-bottom: 0;
   position: relative;
   overflow: visible;
+}
+
+.meeting-announcement {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+
+.meeting-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+.meeting-banner-kicker {
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.meeting-banner h2 {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.meeting-banner-details {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.meeting-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.meeting-calendar-link {
+  flex: 0 0 auto;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.meeting-calendar-link:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.meeting-calendar-link:focus-visible,
+.meeting-actions .btn:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 3px;
 }
 
 .hero-bg {
@@ -405,6 +504,25 @@ const base = import.meta.env.BASE_URL;
 }
 
 @media (max-width: 640px) {
+  .meeting-banner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .meeting-banner h2 { font-size: 1.3rem; }
+
+  .meeting-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .meeting-calendar-link,
+  .meeting-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .hero-top { grid-template-columns: 1fr; gap: 1rem; }
   .hero-cad-image { width: min(78vw, 297px); min-height: 220px; justify-self: center; right: 0; }
   .hero-img-grid { grid-template-columns: 1fr; }
@@ -414,6 +532,21 @@ const base = import.meta.env.BASE_URL;
 </style>
 
 <script>
+const meetingAnnouncement = document.querySelector<HTMLElement>('[data-meeting-announcement]');
+
+if (meetingAnnouncement) {
+  const expiration = Date.parse(meetingAnnouncement.dataset.expiresAt ?? '');
+  const remaining = expiration - Date.now();
+
+  if (!Number.isFinite(expiration) || remaining <= 0) {
+    meetingAnnouncement.hidden = true;
+  } else {
+    window.setTimeout(() => {
+      meetingAnnouncement.hidden = true;
+    }, remaining);
+  }
+}
+
 const cadImage = document.querySelector<HTMLElement>('[data-cad-image]');
 
 if (cadImage) {
