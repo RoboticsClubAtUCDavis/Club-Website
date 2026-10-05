@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL;
 
-// Template:   { src: `${base}images/`, alt: '', category: ['Category', 'Another Category'], size: '' },
+// Template:   { src: `${base}images/`, alt: 'Description', category: 'Category', size: 'small/large' }, or { src: `${base}images/`, alt: '', category: ['Category', 'Another Category'], size: '' },
 // List of categories (manually updated): Meetings, Combat Robotics, Events, CAD, Drone, Line Follower, Quadruped
 
 const photos = [
@@ -16,9 +16,9 @@ const photos = [
   { src: `${base}images/Combat%20Robotics/IMG_0648.jpg`, alt: 'Fall 2025 White Plastic Antweight Post-Fight', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/Combat%20Robotics/IMG_0677.jpg`, alt: 'Fall 2025 White Plastic Antweight 1', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/Combat%20Robotics/IMG_0759.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 1', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0760.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 2', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0761.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 3', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0763.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 4', category: 'Combat Robotics', size: 'small' },
+//  { src: `${base}images/Combat%20Robotics/IMG_0760.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 2', category: 'Combat Robotics', size: 'small' }, (Repetative)
+  { src: `${base}images/Combat%20Robotics/IMG_0761.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 2', category: 'Combat Robotics', size: 'small' },
+//  { src: `${base}images/Combat%20Robotics/IMG_0763.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 4', category: 'Combat Robotics', size: 'small' }, (Repetative)
   { src: `${base}images/Drone/image.png`, alt: '2025 Picnic Day Table 1', category: ['Drone', 'Events'], size: 'large' },
   { src: `${base}images/Drone/aerial.png`, alt: '2025 Picnic Day Aerial Drone Capture', category: ['Drone', 'Events'], size: 'small' },
   { src: `${base}images/Drone/68792591330__7A4233E5-0C54-4E37-BDD2-CDBA8CFBEF5E_Original.png`, alt: '2025 Project Showcase Prep For Picnic Day', category: ['Drone', 'Events'], size: 'small' },
@@ -36,8 +36,8 @@ const photos = [
   { src: `${base}images/2025%20Engineering%20Club%20Day/YellowBot.png`, alt: 'Spring 2025 Yellow Plastic Antweight 2', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/2025%20Engineering%20Club%20Day/20250513_191503.png`, alt: 'Spring 2025 Yellow Plastic Antweight 3', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/2025%20Engineering%20Club%20Day/20250513_192712.png`, alt: 'Spring 2025 Yellow Plastic Antweight 4', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0446.png`, alt: 'Spring 2025 Yellow Plastic Antweight 5', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0447.png`, alt: 'Spring 2025 Yellow Plastic Antweight 6', category: 'Combat Robotics', size: 'small' },
+//  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0446.png`, alt: 'Spring 2025 Yellow Plastic Antweight 5', category: 'Combat Robotics', size: 'small' }, (Repetative)
+  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0447.png`, alt: 'Spring 2025 Yellow Plastic Antweight 5', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/Combat%20Robotics/2023_member_1lb_wedge_prototype.png`, alt: '2023 Member 1lb Wedge Prototype', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/Meetings/First_Meeting_Front_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'small' },
   { src: `${base}images/Meetings/First_Meeting_Back_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'large' },
@@ -48,6 +48,12 @@ const photos = [
   { src: `${base}images/Events/Orientation_Engineering_Club_Fair_3.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
   { src: `${base}images/Events/Orientation_Engineering_Club_Fair_4.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
   { src: `${base}images/Combat%20Robotics/Patty_CAD_Colored.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
+  { src: `${base}images/Combat%20Robotics/Patty_CAD_Under_Da_Hood_1.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
+  { src: `${base}images/Combat%20Robotics/Patty_CAD_Under_Da_Hood_2.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
+  { src: `${base}images/Combat%20Robotics/Patty_CAD_Grayscale.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
+  { src: `${base}images/Combat%20Robotics/Jeff_CAD.png`, alt: 'Fall 2026 CAD of "Jeff" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
+  { src: `${base}images/Combat%20Robotics/Test_Two_v2_DCProject_-_Autodesk_Fusion__2025_10_12_17_00_18.png`, alt: '2025 Combat Robot CAD', category: ['CAD', 'Combat Robotics'], size: 'small' },
+
 
 
 ];
@@ -74,6 +80,18 @@ const categories = ['All', ...new Set(newestPhotos.flatMap(p => getCategories(p.
       <p class="section-label">In pictures</p>
       <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Gallery</h1>
       <p class="section-body">A look at what goes on in the lab, at competitions, and in the community.</p>
+      <aside class="gallery-share-banner" aria-labelledby="gallery-share-title">
+        <div>
+          <p class="section-label">Contribute</p>
+          <h2 id="gallery-share-title">Got a photo to share?</h2>
+          <p>
+          Email your media our way or share it in Discord to be featured on the site! Please include whether it's from a club event, workshop, or personal project and, if you'd like, a brief description of the build or moment.            </p>
+        </div>
+        <div class="gallery-share-actions">
+          <a href={`${base}team#contact`} class="btn btn-outline">Email the Club</a>
+          <a href="https://discord.gg/XA3rYvC9A9" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Join Discord</a>
+        </div>
+      </aside>
     </div>
   </section>
 
@@ -115,23 +133,50 @@ const categories = ['All', ...new Set(newestPhotos.flatMap(p => getCategories(p.
     </div>
   </dialog>
 
-  <!-- Submit photo CTA -->
-  <section class="section" style="background:var(--surface-2);border-top:1px solid var(--border);">
-    <div class="container" style="max-width:580px; text-align:center; margin-inline:auto;">
-      <p class="section-label">Contribute</p>
-      <h2 class="section-title" style="font-size:2rem;">Got a photo to share?</h2>
-      <p class="section-body" style="margin-inline:auto; margin-bottom:2rem;">
-        If you attended an event or captured something cool in the lab, send it our way.
-      </p>
-      <a href="https://forms.gle/ywqMth8pzfQKZ42E8" class="btn btn-outline">Submit a Photo</a>
-    </div>
-  </section>
-
 </Layout>
 
 <style>
-.gallery-hero { padding-bottom: 24px; }
-.gallery-content { padding-top: 48px; }
+.gallery-hero { padding-bottom: 0; }
+.gallery-content { padding-top: 28px; }
+
+.gallery-share-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 1.5rem 0 0;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+  background: var(--surface-2);
+}
+
+.gallery-share-banner .section-label {
+  margin-bottom: 0.5rem;
+}
+
+.gallery-share-banner h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.gallery-share-banner p:not(.section-label) {
+  max-width: 58ch;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.gallery-share-banner .btn {
+  flex: 0 0 auto;
+}
+
+.gallery-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
 
 .filter-bar {
   display: flex;
@@ -329,6 +374,15 @@ const categories = ['All', ...new Set(newestPhotos.flatMap(p => getCategories(p.
 
 @media (max-width: 860px) {
   .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .gallery-share-banner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
 }
 
 @media (max-width: 500px) {
