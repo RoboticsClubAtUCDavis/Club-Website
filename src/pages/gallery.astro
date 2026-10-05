@@ -3,42 +3,68 @@ import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL;
 
+// Template:   { src: `${base}images/`, alt: '', category: ['Category', 'Another Category'], size: '' },
+// List of categories (manually updated): Meetings, Combat Robotics, Events, CAD, Drone, Line Follower, Quadruped
+
 const photos = [
-  { src: `${base}images/Combat%20Robotics/02D83855747A3AA3DD194A3B6D85FD95.png`, alt: '2025 member purple plastic 1lb antweight 1', category: 'Combat Robotics', size: 'large' },
-  { src: `${base}images/Combat%20Robotics/CAD84AA3-8542-4606-A5DC-B878B2DB9862.jpg`, alt: '2023 1lb pink/black antweight', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/B9E49CEA-55FB-427F-B580-94D13033A84E.jpg`, alt: '2023 blue plastic antweight', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0556.jpg`, alt: 'Antweight electronics wiring', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/2E6CA53948386972C3F1978441B3E75A.png`, alt: '2025 member purple plastic 1lb antweight 2', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/DB755629-E323-4910-8573-251C83CFBD44.jpg`, alt: '2023 1lb pink/black antweight', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0648.jpg`, alt: 'Fall 2025 white plastic antweight post-fight', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0677.jpg`, alt: 'Fall 2025 white plastic antweight 1', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0759.jpg`, alt: 'Fall 2025 purple plastic antweight 1', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0760.jpg`, alt: 'Fall 2025 purple plastic antweight 2', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0761.jpg`, alt: 'Fall 2025 purple plastic antweight 3', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/IMG_0763.jpg`, alt: 'Fall 2025 purple plastic antweight 4', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Drone/image.png`, alt: '2025 Picnic Day table 1', category: 'Drone', size: 'large' },
-  { src: `${base}images/Drone/aerial.png`, alt: '2025 Picnic Day aerial drone capture', category: 'Drone', size: 'small' },
-  { src: `${base}images/Drone/68792591330__7A4233E5-0C54-4E37-BDD2-CDBA8CFBEF5E_Original.png`, alt: '2025 project showcase prep for Picnic Day', category: 'Drone', size: 'small' },
-  { src: `${base}images/Drone/IMG_3854_Original.png`, alt: '2025 Picnic Day table 2', category: 'Drone', size: 'small' },
-  { src: `${base}images/Mini%20bot/IMG_0396.png`, alt: 'Winter 2025 line follower 1', category: 'Line Follower', size: 'large' },
-  { src: `${base}images/Mini%20bot/IMG_0393.png`, alt: 'Winter 2025 line follower code review', category: 'Line Follower', size: 'small' },
-  { src: `${base}images/Mini%20bot/IMG_0394.png`, alt: 'Winter 2025 line follower test run', category: 'Line Follower', size: 'small' },
-  { src: `${base}images/Mini%20bot/IMG_0397.png`, alt: 'Winter 2025 line follower 2', category: 'Line Follower', size: 'small' },
-  { src: `${base}images/Mini%20bot/20250222_171231.png`, alt: 'Winter 2025 line follower 3', category: 'Line Follower', size: 'small' },
-  { src: `${base}images/Quadruped/image.png`, alt: 'Quadruped robot prototype', category: 'Quadruped', size: 'small' },
-  { src: `${base}images/Past_Meeting.png`, alt: 'Past club meeting', category: 'General', size: 'small' },
-  { src: `${base}images/October_2025_Meeting.jpg`, alt: 'Fall 2025 first club meeting', category: 'General', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0448.png`, alt: 'Spring 2025 yellow plastic antweight 1', category: 'Combat Robotics', size: 'large' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/WhiteBot.png`, alt: 'Fall 2025 white plastic antweight 2', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/YellowBot.png`, alt: 'Spring 2025 yellow plastic antweight 2', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/20250513_191503.png`, alt: 'Spring 2025 yellow plastic antweight 3', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/20250513_192712.png`, alt: 'Spring 2025 yellow plastic antweight 4', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0446.png`, alt: 'Spring 2025 yellow plastic antweight 5', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0447.png`, alt: 'Spring 2025 yellow plastic antweight 6', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Combat%20Robotics/2023_member_1lb_wedge_prototype.png`, alt: '2023 member 1lb wedge prototype', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/02D83855747A3AA3DD194A3B6D85FD95.png`, alt: '2025 Member Purple Plastic 1lb Antweight 1', category: 'Combat Robotics', size: 'large' },
+  { src: `${base}images/Combat%20Robotics/CAD84AA3-8542-4606-A5DC-B878B2DB9862.jpg`, alt: '2023 1lb Pink/Black Antweight', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/B9E49CEA-55FB-427F-B580-94D13033A84E.jpg`, alt: '2023 Blue Plastic Antweight', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/IMG_0556.jpg`, alt: 'Antweight Electronics Wiring', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/2E6CA53948386972C3F1978441B3E75A.png`, alt: '2025 Member Purple Plastic 1lb Antweight 2', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/DB755629-E323-4910-8573-251C83CFBD44.jpg`, alt: '2023 1lb Pink/Black Antweight', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/IMG_0648.jpg`, alt: 'Fall 2025 White Plastic Antweight Post-Fight', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/IMG_0677.jpg`, alt: 'Fall 2025 White Plastic Antweight 1', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/IMG_0759.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 1', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/IMG_0760.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 2', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/IMG_0761.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 3', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/IMG_0763.jpg`, alt: 'Fall 2025 Purple Plastic Antweight 4', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Drone/image.png`, alt: '2025 Picnic Day Table 1', category: ['Drone', 'Events'], size: 'large' },
+  { src: `${base}images/Drone/aerial.png`, alt: '2025 Picnic Day Aerial Drone Capture', category: ['Drone', 'Events'], size: 'small' },
+  { src: `${base}images/Drone/68792591330__7A4233E5-0C54-4E37-BDD2-CDBA8CFBEF5E_Original.png`, alt: '2025 Project Showcase Prep For Picnic Day', category: ['Drone', 'Events'], size: 'small' },
+  { src: `${base}images/Drone/IMG_3854_Original.png`, alt: '2025 Picnic Day Table 2', category: ['Drone', 'Events'], size: 'small' },
+  { src: `${base}images/Mini%20bot/IMG_0396.png`, alt: 'Winter 2025 Line Follower 1', category: 'Line Follower', size: 'large' },
+  { src: `${base}images/Mini%20bot/IMG_0393.png`, alt: 'Winter 2025 Line Follower Code Review', category: 'Line Follower', size: 'small' },
+  { src: `${base}images/Mini%20bot/IMG_0394.png`, alt: 'Winter 2025 Line Follower Test Run', category: 'Line Follower', size: 'small' },
+  { src: `${base}images/Mini%20bot/IMG_0397.png`, alt: 'Winter 2025 Line Follower 2', category: 'Line Follower', size: 'small' },
+  { src: `${base}images/Mini%20bot/20250222_171231.png`, alt: 'Winter 2025 Line Follower 3', category: 'Line Follower', size: 'small' },
+  { src: `${base}images/Quadruped/image.png`, alt: 'Quadruped Robot Prototype', category: 'Quadruped', size: 'small' },
+  { src: `${base}images/Past_Meeting.png`, alt: 'Past Club Meeting', category: 'Meetings', size: 'small' },
+  { src: `${base}images/October_2025_Meeting.jpg`, alt: 'Fall 2025 First Club Meeting', category: 'Meetings', size: 'small' },
+  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0448.png`, alt: 'Spring 2025 Yellow Plastic Antweight 1', category: 'Combat Robotics', size: 'large' },
+  { src: `${base}images/2025%20Engineering%20Club%20Day/WhiteBot.png`, alt: 'Fall 2025 White Plastic Antweight 2', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/2025%20Engineering%20Club%20Day/YellowBot.png`, alt: 'Spring 2025 Yellow Plastic Antweight 2', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/2025%20Engineering%20Club%20Day/20250513_191503.png`, alt: 'Spring 2025 Yellow Plastic Antweight 3', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/2025%20Engineering%20Club%20Day/20250513_192712.png`, alt: 'Spring 2025 Yellow Plastic Antweight 4', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0446.png`, alt: 'Spring 2025 Yellow Plastic Antweight 5', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0447.png`, alt: 'Spring 2025 Yellow Plastic Antweight 6', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/2023_member_1lb_wedge_prototype.png`, alt: '2023 Member 1lb Wedge Prototype', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Meetings/First_Meeting_Front_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'small' },
+  { src: `${base}images/Meetings/First_Meeting_Back_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'large' },
+  { src: `${base}images/Combat%20Robotics/Jeff_Antweight_2026.jpg`, alt: 'Fall 2026 "Jeff" Antweight', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/Patty_Antweight_2026.jpg`, alt: 'Fall 2026 "Patty" Antweight', category: 'Combat Robotics', size: 'small' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_1.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'large' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_2.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_3.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_4.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
+  { src: `${base}images/Combat%20Robotics/Patty_CAD_Colored.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
+
+
 ];
 
-const categories = ['All', ...new Set(photos.map(p => p.category))];
+// Sort photos by year and season in alt, with key words like "Picnic Day" considered Spring
+
+const getPhotoDate = (alt: string) => {
+  const year = Number(alt.match(/\b20\d{2}\b/)?.[0] ?? 0);
+  const season = alt.match(/\b(winter|spring|summer|fall)\b/i)?.[0].toLowerCase();
+  const seasonOrder: Record<string, number> = { winter: 1, spring: 2, summer: 3, fall: 4 };
+  const periodOrder = season ? seasonOrder[season] : /\bpicnic day\b/i.test(alt) ? 2 : 3;
+  return year * 10 + periodOrder;
+};
+
+const newestPhotos = [...photos].sort((first, second) => getPhotoDate(second.alt) - getPhotoDate(first.alt));
+const getCategories = (category: string | string[]) => Array.isArray(category) ? category : [category];
+const categories = ['All', ...new Set(newestPhotos.flatMap(p => getCategories(p.category)))];
 ---
 
 <Layout title="Gallery" description="Photos from UC Davis Robotics Club — lab work, competitions, and workshops.">
@@ -65,12 +91,12 @@ const categories = ['All', ...new Set(photos.map(p => p.category))];
 
       <!-- Organized gallery grid -->
       <div class="gallery-grid" id="galleryGrid">
-        {photos.map(p => (
-          <button class="gallery-item" data-cat={p.category} data-size={p.size} type="button" aria-label={`Expand image: ${p.alt}`}>
+        {newestPhotos.map(p => (
+          <button class="gallery-item" data-cat={getCategories(p.category).join('|')} data-size={p.size} type="button" aria-label={`Expand image: ${p.alt}`}>
             <img src={p.src} alt={p.alt} class="gallery-img" loading="lazy" decoding="async" />
             <div class="gallery-overlay">
               <p class="gallery-caption">{p.alt}</p>
-              <span class="gallery-cat">{p.category}</span>
+              {getCategories(p.category).map(category => <span class="gallery-cat">{category}</span>)}
             </div>
           </button>
         ))}
@@ -360,7 +386,7 @@ filterBtns.forEach(btn => {
     btn.classList.add('active');
     const cat = btn.dataset.cat;
     items.forEach(item => {
-      item.classList.toggle('hidden', cat !== 'All' && item.dataset.cat !== cat);
+      item.classList.toggle('hidden', cat !== 'All' && !item.dataset.cat?.split('|').includes(cat ?? ''));
     });
   });
 });
