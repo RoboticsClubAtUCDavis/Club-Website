@@ -6,7 +6,8 @@ const base = import.meta.env.BASE_URL;
 /*
 Notes
 1. Events are sorted by date, so make sure to add new events in the correct order. Older events are on the top of the list and will be moved to the past events section once they have passed.
-2. To add another event, you can use the following template:
+2. Recent events are shown newest first.
+3. To add another event, you can use the following template:
   {
     title: '[Insert Event Title]',
     date: '[Weekday], [Abbreviated Month] [Day]',
@@ -148,19 +149,19 @@ const eventBannerImages = [
         {futureEvents.map(event => (
           <article class="event-row" data-event-row data-end-time={event.endAt}>
             <div class="event-date-col">
-              <p class="event-date">{event.date}</p>
-              <p class="event-time">{event.time}</p>
+              <p class="event-date event-reveal-item" style="--event-reveal-delay: 0s">{event.date}</p>
+              <p class="event-time event-reveal-item" style="--event-reveal-delay: 0.12s">{event.time}</p>
             </div>
             <div class="event-info">
-              <h3 class="event-title">{event.title}</h3>
+              <h3 class="event-title event-reveal-item" style="--event-reveal-delay: 0.24s">{event.title}</h3>
               {event.mapUrl ? (
-                <a class="event-location" href={event.mapUrl} target="_blank" rel="noopener noreferrer">
+                <a class="event-location event-reveal-item" style="--event-reveal-delay: 0.36s" href={event.mapUrl} target="_blank" rel="noopener noreferrer">
                   {event.location}
                 </a>
               ) : (
-                <p class="event-location">{event.location}</p>
+                <p class="event-location event-reveal-item" style="--event-reveal-delay: 0.36s">{event.location}</p>
               )}
-              <p class="event-desc">
+              <p class="event-desc event-reveal-item" style="--event-reveal-delay: 0.48s">
                 {event.desc}
                 {event.linkUrl && (
                   <>
@@ -172,7 +173,7 @@ const eventBannerImages = [
                 )}
               </p>
             </div>
-            <span class="event-badge" data-tag={event.tag.toLowerCase()}>{event.tag}</span>
+            <span class="event-badge event-reveal-item" style="--event-reveal-delay: 0.6s" data-tag={event.tag.toLowerCase()}>{event.tag}</span>
           </article>
         ))}
       </div>
@@ -354,31 +355,14 @@ const eventBannerImages = [
   transition: background 0.15s, transform 0.2s ease;
 }
 
-.event-date-col,
-.event-info,
-.event-badge {
+.event-reveal-item {
   opacity: 0;
   transform: translateY(70px);
 }
 
-.event-row.is-visible .event-date-col,
-.event-row.is-visible .event-info,
-.event-row.is-visible .event-badge {
-  animation: event-row-fly-in 0.65s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+.event-row.is-visible .event-reveal-item {
+  animation: event-row-fly-in 0.65s cubic-bezier(0.2, 0.8, 0.25, 1) var(--event-reveal-delay) both;
 }
-
-.event-row:nth-child(2) .event-date-col,
-.event-row:nth-child(2) .event-info,
-.event-row:nth-child(2) .event-badge { animation-delay: 0.12s; }
-.event-row:nth-child(3) .event-date-col,
-.event-row:nth-child(3) .event-info,
-.event-row:nth-child(3) .event-badge { animation-delay: 0.24s; }
-.event-row:nth-child(4) .event-date-col,
-.event-row:nth-child(4) .event-info,
-.event-row:nth-child(4) .event-badge { animation-delay: 0.36s; }
-.event-row:nth-child(5) .event-date-col,
-.event-row:nth-child(5) .event-info,
-.event-row:nth-child(5) .event-badge { animation-delay: 0.48s; }
 
 @keyframes event-row-fly-in {
   to {
@@ -545,9 +529,7 @@ const eventBannerImages = [
   }
 
 
-  .event-date-col,
-  .event-info,
-  .event-badge {
+  .event-reveal-item {
     opacity: 1;
     transform: none;
     animation: none;
@@ -645,6 +627,11 @@ const eventBannerImages = [
       }
     });
 
+    const archivedRows = Array.from(pastEvents.querySelectorAll<HTMLElement>('[data-event-row]'));
+    archivedRows.sort((first, second) =>
+      new Date(second.dataset.endTime ?? '').getTime() - new Date(first.dataset.endTime ?? '').getTime()
+    );
+    archivedRows.forEach(row => pastEvents.appendChild(row));
     pastEmpty.hidden = pastEvents.querySelector('[data-event-row]') !== null;
   };
 
@@ -658,9 +645,9 @@ const eventBannerImages = [
     } else {
       const eventObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            eventRows.forEach(row => row.classList.add('is-visible'));
-            eventObserver.disconnect();
+          if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+            entry.target.classList.add('is-visible');
+            eventObserver.unobserve(entry.target);
           }
         });
       }, { threshold: 0.1 });
