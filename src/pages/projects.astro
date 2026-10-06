@@ -8,18 +8,75 @@ const projects = [
     title: 'Combat Robotics',
     tag: 'Combat · Hardware',
     status: 'Active',
-    year: '2025',
-    desc: 'A student-built combat robot platform focused on robust drivetrain design, fast iteration, and high-impact demonstrations. The project brings together mechanical fabrication, controls, and testing in a highly hands-on environment.',
-    tech: ['Fabrication', 'Controls', 'Testing', 'CAD'],
-    image: `${base}images/Combat%20Robotics/02D83855747A3AA3DD194A3B6D85FD95.png`,
+    year: '2026-2027',
+    desc: 'We design, 3D print, and battle custom 1-lb and 3-lb combat robots in our own arena—and face off against rival universities in collegiate throwdowns! From building custom flippers like Patty to dialing in drivetrains and armor, this subteam is all about designing for combat with strength and durability as the focus.',
+    tech: ['3D Printing', 'CAD', 'Rapid Prototyping', 'LiPo Power', 'Arena Fabrication'],
+    image: `${base}images/Combat%20Robotics/Patty_Antweight_2026.jpg`,
   },
 
   {
-    title: 'Drone Platform',
+    title: 'Precision Robotic Arm',
+    tag: 'Manipulator · Robotics',
+    status: 'Active',
+    year: '2026-2027',
+    desc: 'Bringing industrial manufacturing to the club workbench. We are engineering a multi-axis robotic arm from scratch, complete with custom 3D-printed gearboxes, in-house motor control PCBs designed in KiCad, and smooth inverse kinematics math to give it smooth, precise coordinate control.',
+    tech: ['Fusion 360', 'KiCad PCB', 'ESP32 / Arduino', 'Inverse Kinematics', 'Gearbox Design'],
+    image: `${base}images/Placeholders/WIP_Robot_Arm.png`,
+  },
+
+  {
+    title: 'Drones & Planes',
+    tag: 'Aerospace · Flight Systems',
+    status: 'Active',
+    year: '2026-2027',
+    desc: 'Everything built to take to the skies! We construct acrobatic FPV quadcopters and custom fixed-wing RC planes from the ground up, outfitting them with high-power brushless setups, telemetry, and ArduPilot flight controllers for rock-solid stabilization and GPS route navigation.',
+    tech: ['ArduPilot', 'Flight Controllers', 'Telemetry', 'ESC & Brushless Motors', 'Aerodynamics'],
+    image: `${base}images/Placeholders/WIP_Plane_Drone.png`,
+  },
+
+  {
+    title: 'Hub-Motor RC Car',
+    tag: 'Electric Vehicle · Drivetrain',
+    status: 'Active',
+    year: '2026-2027',
+    desc: 'Ditching heavy gears and drivetrains for raw, instantaneous power. We are building a custom high-performance electric RC chassis using direct-drive brushless hub motors packed right into the wheels, paired with double-wishbone suspension, custom steering geometry, and per-wheel torque vectoring.',
+    tech: ['Direct-Drive Hubs', 'Vehicle Dynamics', 'Ackerman Steering', 'Suspension CAD', 'Individual ESCs'],
+    image: `${base}images/Placeholders/WIP_RC_Car.png`,
+  },
+  {
+    title: '3D Printer Modifications',
+    tag: 'Additive · Motion Systems',
+    status: 'Active',
+    year: '2026-2027',
+    desc: 'Pushing desktop 3D printers past their factory limits! We are transforming an old printer into a faster modern counterpart. Adding things like a 100W hotend, Raspberry Pi host boards running Klipper, and resonance-canceling accelerometers for fast prints.',
+    tech: ['CoreXY Kinematics', 'Klipper Firmware', 'Raspberry Pi', 'Input Shaping (ADXL345)', 'Thermal PID Tuning'],
+    image: `${base}images/Placeholders/WIP_3D_Printer.png`,
+  },
+  {
+    title: 'VEX U — Override',
+    tag: 'Collegiate Competition · Robotics',
+    status: 'Active',
+    year: '2026-2027',
+    desc: "Our collegiate competition taking on this season's game, Override! We are building two unique robots that work in tandem: a fast, compact 15-inch bot to weave through traffic and run quick cycles, and a powerhouse 24-inch robot built for huge scoring capacity, reliable lifts, and dialed-in driver control.",
+    tech: ['VEX V5 Architecture', 'Dual-Robot Strategy', 'Path Planning', 'Motion Profiling', 'Drive Kinematics'],
+    image: `${base}images/Placeholders/WIP_Vex.png`,
+  },
+  {
+    title: 'ARLISS Rover Competition',
+    tag: 'Aerospace · Rover Robotics',
+    status: 'Active',
+    year: '2026-2027',
+    desc: 'A high-flying joint mission with the National Association of Rocketry at UC Davis. We are designing a rugged CanSat rover that will be launched thousands of feet into the sky on a high-power rocket, survives a violent 50G parachute touchdown, and traverses rough desert terrain straight to its GPS coordinates.',
+    tech: ['GNSS / GPS Waypointing', 'High-G Shock Packaging', 'CanSat Airframes', 'Telemetry', 'Ground Traversing'],
+    image: `${base}images/Placeholders/WIP_ARLISS.png`,
+  },
+
+  {
+    title: 'Drone Platform - Picnic Day',
     tag: 'Aerial · Autonomy',
     status: 'Archived',
     year: '2025',
-    desc: 'A custom aerial platform for flight testing, visual sensing, and autonomous navigation experiments. The project focuses on reliable hardware integration and flight stability.',
+    desc: "A custom aerial platform for flight testing, visual sensing, and autonomous navigation experiments presented at UC Davis's Picnic Day. The project focuses on reliable hardware integration and flight stability.",
     tech: ['ROS2', 'Computer Vision', 'Python', 'Flight Control'],
     image: `${base}images/Drone/image.png`,
   },
@@ -42,7 +99,7 @@ const projects = [
     image: `${base}images/Quadruped/image.png`,
   },
     {
-    title: 'Engineering Club Day Showcase 2025',
+    title: 'Engineering Club Day Showcase',
     tag: 'Outreach · Demo',
     status: 'Archived',
     year: '2025',
@@ -51,6 +108,9 @@ const projects = [
     image: `${base}images/2025%20Engineering%20Club%20Day/IMG_0448.png`,
   },
 ];
+
+const activeProjects = projects.filter(project => project.status !== 'Archived');
+const archivedProjects = projects.filter(project => project.status === 'Archived');
 ---
 
 <Layout title="Projects" description="Explore robotics projects built by UC Davis Robotics Club members.">
@@ -79,29 +139,51 @@ const projects = [
   <section class="section projects-content">
     <div class="container">
       <div class="projects-list">
-        {projects.map((p, i) => (
-          <div class="project-row">
+        {activeProjects.map(p => (
+          <article class="project-row">
             <div class="project-img-wrap">
               <img src={p.image} alt={p.title} class="project-img" loading="lazy" decoding="async" />
             </div>
             <div class="project-detail">
               <div class="project-meta">
                 <span class="project-tag-text">{p.tag}</span>
-                <span class:list={['project-status', p.status === 'Active' ? 'status-active' : p.status === 'Archived' ? 'status-archived' : p.status === 'Planning' ? 'status-plan' : 'status-done']}>
+                <span class:list={['project-status', p.status === 'Active' ? 'status-active' : p.status === 'Design Phase' ? 'status-plan' : 'status-done']}>
                   {p.status}
                 </span>
               </div>
-              <h2 class="proj-title">{p.title}</h2>
+              <h3 class="proj-title">{p.title}</h3>
               <p class="proj-desc">{p.desc}</p>
               <div class="tech-stack">
                 {p.tech.map(t => <span class="tech-tag">{t}</span>)}
               </div>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </div>
   </section>
+
+  {archivedProjects.length > 0 && (
+    <section class="section project-archive" aria-labelledby="project-archive-title">
+      <div class="container">
+        <p class="section-label">Archive</p>
+        <h2 class="section-title" id="project-archive-title">Past Builds &amp; Legacy Projects</h2>
+        <div class="project-archive-grid">
+          {archivedProjects.map(p => (
+            <article class="project-archive-card">
+              <div class="project-archive-img-wrap">
+                <img src={p.image} alt={p.title} class="project-archive-img" loading="lazy" decoding="async" />
+              </div>
+              <div class="project-archive-info">
+                <h3>{p.title}</h3>
+                <p>{p.year}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="section training-cta" style="background:var(--surface-2);" aria-labelledby="training-title">
     <div class="container events-cta">
@@ -130,6 +212,57 @@ const projects = [
   display: flex;
   flex-direction: column;
   gap: 4rem;
+}
+
+.project-archive {
+  background: var(--surface-2);
+  border-block: 1px solid var(--border);
+}
+
+.project-archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.project-archive-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.project-archive-img-wrap {
+  height: 160px;
+  overflow: hidden;
+}
+
+.project-archive-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-archive-info {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+}
+
+.project-archive-info h3 {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.project-archive-info p {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
 }
 
 .projects-hero { padding-bottom: 8px; }
@@ -168,6 +301,13 @@ const projects = [
   flex: 0 0 auto;
 }
 
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
 .project-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -181,13 +321,6 @@ const projects = [
 
 .project-row:nth-child(even) .project-img { order: 2; }
 .project-row:nth-child(even) .project-detail { order: 1; }
-
-.project-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
 
 .project-tag-text {
   font-family: var(--font-mono);
@@ -242,26 +375,21 @@ const projects = [
 }
 
  .project-img-wrap {
-  height: 260px;
-  border-radius: 6px;
-  overflow: hidden;
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
+   height: 260px;
+   border-radius: 6px;
+   overflow: hidden;
+   background: var(--surface);
+   border: 1px solid var(--border);
+ }
 
-.project-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+ .project-img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   display: block;
+ }
 
-.project-row:nth-child(3) .project-img {
-  object-position: center 35%;
-  transform: scale(1.08);
-}
-
-.events-cta { max-width: 680px; }
+ .events-cta { max-width: 680px; }
 
 .training-cta { border-block: 1px solid var(--border); }
 
