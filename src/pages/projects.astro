@@ -163,6 +163,29 @@ const archivedProjects = projects.filter(project => project.status === 'Archived
     </div>
   </section>
 
+  <section class="section project-slides" aria-labelledby="project-slides-title">
+    <div class="container">
+      <p class="section-label">Explore the projects</p>
+      <h2 class="section-title" id="project-slides-title">Project Overview</h2>
+      <div class="project-slides-frame">
+        <iframe
+          src="https://docs.google.com/presentation/d/1UYDxYsJblhxWw_-TaOznAAtMQeZakYn18235f6aHyG4/embed?start=false&loop=false&delayms=3000"
+          title="UC Davis Robotics Club project overview slides"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <a
+        class="project-slides-link"
+        href="https://docs.google.com/presentation/d/1UYDxYsJblhxWw_-TaOznAAtMQeZakYn18235f6aHyG4/edit?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open presentation in Google Slides
+      </a>
+    </div>
+  </section>
+
   {archivedProjects.length > 0 && (
     <section class="section project-archive" aria-labelledby="project-archive-title">
       <div class="container">
@@ -217,6 +240,39 @@ const archivedProjects = projects.filter(project => project.status === 'Archived
 .project-archive {
   background: var(--surface-2);
   border-block: 1px solid var(--border);
+}
+
+.project-slides {
+  padding-top: 0;
+}
+
+.project-slides .container {
+  max-width: 1280px;
+}
+
+.project-slides-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.project-slides-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.project-slides-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .project-archive-grid {
