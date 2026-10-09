@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 const base = import.meta.env.BASE_URL;
 const meetingCalendarUrl = new URL('https://calendar.google.com/calendar/render');
 meetingCalendarUrl.searchParams.set('action', 'TEMPLATE');
-meetingCalendarUrl.searchParams.set('text', 'Davis Robotics Club First Meeting');
-meetingCalendarUrl.searchParams.set('dates', '20261003T210000Z/20261003T230000Z');
-meetingCalendarUrl.searchParams.set('details', 'Kick off the school year with the Davis Robotics Club. Meet the officer board, explore the year roadmap, and learn how to get involved.');
-meetingCalendarUrl.searchParams.set('location', 'Teaching and Learning Complex, Room 2010, UC Davis, Davis, CA');
+meetingCalendarUrl.searchParams.set('text', 'Davis Robotics Club Project Onboarding Meeting');
+meetingCalendarUrl.searchParams.set('dates', '20261017T190000Z/20261017T220000Z');
+meetingCalendarUrl.searchParams.set('details', "Join the Davis Robotics Club Project Onboarding sessions. Review project hardware, claim subteam tasks and deadlines, and get set up with essential build tools.");
+meetingCalendarUrl.searchParams.set('location', 'Teaching and Learning Complex, Room 1214, UC Davis, Davis, CA');
 ---
 
 <Layout
@@ -20,18 +20,21 @@ meetingCalendarUrl.searchParams.set('location', 'Teaching and Learning Complex, 
     <div
       class="container meeting-announcement"
       data-meeting-announcement
-      data-expires-at="2026-10-03T16:00:00-07:00"
+      data-expires-at="2026-10-17T15:00:00-07:00"
       aria-label="Upcoming Robotics Club meeting"
     >
       <div class="meeting-banner">
         <div>
-          <p class="meeting-banner-kicker">Saturday, October 3</p>
-          <h2>First Club Meeting</h2>
-          <p class="meeting-banner-details">2:00 PM · UC Davis, Teaching &amp; Learning Complex, Room 2010</p>
+          <p class="meeting-banner-kicker">Saturday, October 17 · 12:00–3:00 PM</p>
+          <h2>Project Onboarding Meeting</h2>
+          <p class="meeting-banner-details">Join project teams, review hardware, and get set up to build. UC Davis, Teaching &amp; Learning Complex, Room 1214.</p>
         </div>
         <div class="meeting-actions">
           <a class="meeting-calendar-link" href={meetingCalendarUrl.href} target="_blank" rel="noopener noreferrer">
             Add to Google Calendar
+          </a>
+          <a class="meeting-calendar-link" href="https://forms.gle/59cNSLWDMr87bJCa8" target="_blank" rel="noopener noreferrer">
+            Sign Up for Projects
           </a>
         </div>
       </div>
