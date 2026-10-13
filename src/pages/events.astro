@@ -644,7 +644,13 @@ const eventBannerImages = [
     archivedRows.sort((first, second) =>
       new Date(second.dataset.endTime ?? '').getTime() - new Date(first.dataset.endTime ?? '').getTime()
     );
-    archivedRows.forEach(row => pastEvents.appendChild(row));
+    archivedRows.forEach((row, index) => {
+      if (index < 3) {
+        pastEvents.appendChild(row);
+      } else {
+        row.remove();
+      }
+    });
     pastEmpty.hidden = pastEvents.querySelector('[data-event-row]') !== null;
   };
 
