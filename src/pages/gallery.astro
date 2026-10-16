@@ -3,10 +3,18 @@ import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL;
 
-// Template:   { src: `${base}images/`, alt: 'Description', category: 'Category', size: 'small/large' }, or { src: `${base}images/`, alt: '', category: ['Category', 'Another Category'], size: '' },
+// Template:   { src: `${base}images/`, alt: 'Description', category: 'Category', size: 'small/large' }, or { src: `${base}images/`, alt: '', category: ['Category', 'Another Category'], size: '', date: 'YYYY-MM-DD' },
 // List of categories (manually updated): Meetings, Combat Robotics, Events, CAD, Drone, Line Follower, Quadruped
 
-const photos = [
+type Photo = {
+  src: string;
+  alt: string;
+  category: string | string[];
+  size: string;
+  date?: string;
+};
+
+const photos: Photo[] = [
   { src: `${base}images/Combat%20Robotics/02D83855747A3AA3DD194A3B6D85FD95.png`, alt: '2025 Member Purple Plastic 1lb Antweight 1', category: 'Combat Robotics', size: 'large' },
   { src: `${base}images/Combat%20Robotics/CAD84AA3-8542-4606-A5DC-B878B2DB9862.jpg`, alt: '2023 1lb Pink/Black Antweight', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/Combat%20Robotics/B9E49CEA-55FB-427F-B580-94D13033A84E.jpg`, alt: '2023 Blue Plastic Antweight', category: 'Combat Robotics', size: 'small' },
@@ -39,36 +47,40 @@ const photos = [
 //  { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0446.png`, alt: 'Spring 2025 Yellow Plastic Antweight 5', category: 'Combat Robotics', size: 'small' }, (Repetative)
   { src: `${base}images/2025%20Engineering%20Club%20Day/IMG_0447.png`, alt: 'Spring 2025 Yellow Plastic Antweight 5', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/Combat%20Robotics/2023_member_1lb_wedge_prototype.png`, alt: '2023 Member 1lb Wedge Prototype', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Meetings/First_Meeting_Front_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'small' },
-  { src: `${base}images/Meetings/First_Meeting_Back_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'large' },
+  { src: `${base}images/Meetings/First_Meeting_Front_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'small', date: '2026-10-03' },
+  { src: `${base}images/Meetings/First_Meeting_Back_Oct_2026.jpg`, alt: 'Fall 2026 First Club Meeting', category: 'Meetings', size: 'large', date: '2026-10-03' },
   { src: `${base}images/Combat%20Robotics/Jeff_Antweight_2026.jpg`, alt: 'Fall 2026 "Jeff" Antweight', category: 'Combat Robotics', size: 'small' },
   { src: `${base}images/Combat%20Robotics/Patty_Antweight_2026.jpg`, alt: 'Fall 2026 "Patty" Antweight', category: 'Combat Robotics', size: 'small' },
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_1.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'large' },
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_2.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_3.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
-  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_4.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_1.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'large', date: '2026-09-18' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_2.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small', date: '2026-09-18' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_3.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small', date: '2026-09-18' },
+  { src: `${base}images/Events/Orientation_Engineering_Club_Fair_4.jpg`, alt: 'Fall 2026 Orientation Club Fair', category: 'Events', size: 'small', date: '2026-09-18' },
   { src: `${base}images/Combat%20Robotics/Patty_CAD_Colored.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
   { src: `${base}images/Combat%20Robotics/Patty_CAD_Under_Da_Hood_1.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
   { src: `${base}images/Combat%20Robotics/Patty_CAD_Under_Da_Hood_2.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
   { src: `${base}images/Combat%20Robotics/Patty_CAD_Grayscale.png`, alt: 'Fall 2026 CAD of "Patty" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
   { src: `${base}images/Combat%20Robotics/Jeff_CAD.png`, alt: 'Fall 2026 CAD of "Jeff" Antweight', category: ['CAD', 'Combat Robotics'], size: 'small' },
   { src: `${base}images/Combat%20Robotics/Test_Two_v2_DCProject_-_Autodesk_Fusion__2025_10_12_17_00_18.png`, alt: '2025 Combat Robot CAD', category: ['CAD', 'Combat Robotics'], size: 'small' },
-
-
+  { src: `${base}images/Events/Involvement_Fair_1.jpg`, alt: 'Fall 2026 Involvement Fair', category: 'Events', size: 'small', date: '2026-10-13' },
+  { src: `${base}images/Events/Involvement_Fair_2.jpg`, alt: 'Fall 2026 Involvement Fair', category: 'Events', size: 'small', date: '2026-10-13' },
+  { src: `${base}images/Events/Involvement_Fair_3.jpg`, alt: 'Fall 2026 Involvement Fair', category: 'Events', size: 'small', date: '2026-10-13' },
+  { src: `${base}images/Drone/DJI_Matrice_100.png`, alt: 'Fall 2026 DJI Matrice 100 Drone', category: 'Drone', size: 'small' },
 
 ];
 
-// Sort photos by year and season in alt, with key words like "Picnic Day" considered Spring
+// Set date as YYYY-MM-DD to sort by an exact date without including it in alt text.
 
-const getPhotoDate = (alt: string) => {
-  const year = Number(alt.match(/\b20\d{2}\b/)?.[0] ?? 0);
-  const season = alt.match(/\b(winter|spring|summer|fall)\b/i)?.[0].toLowerCase();
-  const seasonOrder: Record<string, number> = { winter: 1, spring: 2, summer: 3, fall: 4 };
-  const periodOrder = season ? seasonOrder[season] : /\bpicnic day\b/i.test(alt) ? 2 : 3;
-  return year * 10 + periodOrder;
+const getPhotoDate = (photo: Photo) => {
+  if (photo.date) return Number(photo.date.replaceAll('-', ''));
+
+  const year = Number(photo.alt.match(/\b20\d{2}\b/)?.[0] ?? 0);
+  const season = photo.alt.match(/\b(winter|spring|summer|fall)\b/i)?.[0].toLowerCase();
+  const seasonMonth: Record<string, number> = { winter: 1, spring: 4, summer: 7, fall: 10 };
+  const month = season ? seasonMonth[season] : /\bpicnic day\b/i.test(photo.alt) ? 4 : 7;
+  return year * 10000 + month * 100;
 };
 
-const newestPhotos = [...photos].sort((first, second) => getPhotoDate(second.alt) - getPhotoDate(first.alt));
+const newestPhotos = [...photos].sort((first, second) => getPhotoDate(second) - getPhotoDate(first));
 const getCategories = (category: string | string[]) => Array.isArray(category) ? category : [category];
 const categories = ['All', ...new Set(newestPhotos.flatMap(p => getCategories(p.category)))];
 ---
