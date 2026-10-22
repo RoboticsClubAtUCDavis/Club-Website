@@ -43,6 +43,7 @@ const projects = [
     tech: ['Direct-Drive Hubs', 'Vehicle Dynamics', 'Ackerman Steering', 'Suspension CAD', 'Individual ESCs'],
     image: `${base}images/Placeholders/WIP_RC_Car.png`,
   },
+/*
   {
     title: '3D Printer Modifications',
     tag: 'Additive · Motion Systems',
@@ -51,7 +52,10 @@ const projects = [
     desc: 'Pushing desktop 3D printers past their factory limits! We are transforming an old printer into a faster modern counterpart. Adding things like a 100W hotend, Raspberry Pi host boards running Klipper, and resonance-canceling accelerometers for fast prints.',
     tech: ['CoreXY Kinematics', 'Klipper Firmware', 'Raspberry Pi', 'Input Shaping (ADXL345)', 'Thermal PID Tuning'],
     image: `${base}images/Placeholders/WIP_3D_Printer.png`,
-  },
+  }, 
+  */
+  
+  /*
   {
     title: 'VEX U — Override',
     tag: 'Collegiate Competition · Robotics',
@@ -61,15 +65,19 @@ const projects = [
     tech: ['VEX V5 Architecture', 'Dual-Robot Strategy', 'Path Planning', 'Motion Profiling', 'Drive Kinematics'],
     image: `${base}images/Placeholders/WIP_Vex.png`,
   },
+*/
+
+
   {
     title: 'ARLISS Rover Competition',
     tag: 'Aerospace · Rover Robotics',
-    status: 'Active',
+    status: 'Planned - Winter',
     year: '2026-2027',
     desc: 'A high-flying joint mission with the National Association of Rocketry at UC Davis. We are designing a rugged CanSat rover that will be launched thousands of feet into the sky on a high-power rocket, survives a violent 50G parachute touchdown, and traverses rough desert terrain straight to its GPS coordinates.',
     tech: ['GNSS / GPS Waypointing', 'High-G Shock Packaging', 'CanSat Airframes', 'Telemetry', 'Ground Traversing'],
     image: `${base}images/Placeholders/WIP_ARLISS.png`,
   },
+
 
   {
     title: 'Drone Platform - Picnic Day',
@@ -147,7 +155,7 @@ const archivedProjects = projects.filter(project => project.status === 'Archived
             <div class="project-detail">
               <div class="project-meta">
                 <span class="project-tag-text">{p.tag}</span>
-                <span class:list={['project-status', p.status === 'Active' ? 'status-active' : p.status === 'Design Phase' ? 'status-plan' : 'status-done']}>
+                <span class:list={['project-status', p.status === 'Active' ? 'status-active' : p.status === 'Design Phase' ? 'status-plan' : p.status.startsWith('Planned') ? 'status-planned' : 'status-done']}>
                   {p.status}
                 </span>
               </div>
@@ -387,6 +395,8 @@ const archivedProjects = projects.filter(project => project.status === 'Archived
 }
 
 .project-status {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.1em;
@@ -399,6 +409,7 @@ const archivedProjects = projects.filter(project => project.status === 'Archived
 .status-archived { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
 .status-done    { background: rgba(100,100,120,0.2); color: var(--text-dim); border: 1px solid var(--border); }
 .status-plan    { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+.status-planned { background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid rgba(59,130,246,0.55); }
 
 .proj-title {
   font-size: clamp(1.5rem, 3vw, 2rem);
