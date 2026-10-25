@@ -2,6 +2,9 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import interFont from '../assets/fonts/Inter.woff2';
+import spaceGroteskFont from '../assets/fonts/SpaceGrotesk.woff2';
+import jetBrainsMonoFont from '../assets/fonts/JetBrainsMono.woff2';
 
 interface Props {
   title: string;
@@ -61,6 +64,9 @@ const organizationSchema = {
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="icon" type="image/png" sizes="192x192" href={`${base}favicon.png`} />
     <link rel="apple-touch-icon" href={`${base}favicon.png`} />
+    <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={spaceGroteskFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jetBrainsMonoFont} as="font" type="font/woff2" crossorigin />
     <title>{title} — Robotics Club at UC Davis</title>
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
