@@ -6,7 +6,7 @@ const base = import.meta.env.BASE_URL;
 /*
 Notes
 1. Events are sorted by date, so make sure to add new events in the correct order. Older events are on the top of the list and will be moved to the past events section once they have passed.
-2. Recent events are shown newest first.
+2. Recent events are shown newest first, covering the past 3 days and expanding to at least 3 distinct event dates when available.
 3. To add another event, you can use the following template:
   {
     title: '[Insert Event Title]',
@@ -675,17 +675,35 @@ const eventBannerImages = [
       }
     });
 
+    const recentCutoff = Date.now() - 3 * 24 * 60 * 60 * 1000;
     const archivedRows = Array.from(pastEvents.querySelectorAll<HTMLElement>('[data-event-row]'));
-    archivedRows.sort((first, second) =>
-      new Date(second.dataset.endTime ?? '').getTime() - new Date(first.dataset.endTime ?? '').getTime()
+    const sortByNewest = (first: HTMLElement, second: HTMLElement) =>
+      new Date(second.dataset.endTime ?? '').getTime() - new Date(first.dataset.endTime ?? '').getTime();
+    const eventDays = Array.from(new Set(
+      archivedRows
+        .map(row => row.dataset.endTime?.slice(0, 10))
+        .filter((day): day is string => Boolean(day))
+    )).sort((first, second) => second.localeCompare(first));
+    const visibleDays = new Set(
+      archivedRows
+        .filter(row => new Date(row.dataset.endTime ?? '').getTime() > recentCutoff)
+        .map(row => row.dataset.endTime?.slice(0, 10))
+        .filter((day): day is string => Boolean(day))
     );
-    archivedRows.forEach((row, index) => {
-      if (index < 3) {
-        pastEvents.appendChild(row);
-      } else {
-        row.remove();
-      }
+
+    for (const day of eventDays) {
+      if (visibleDays.size >= 3) break;
+      visibleDays.add(day);
+    }
+
+    const visibleRows = archivedRows
+      .filter(row => visibleDays.has(row.dataset.endTime?.slice(0, 10) ?? ''))
+      .sort(sortByNewest);
+
+    archivedRows.forEach(row => {
+      if (!visibleRows.includes(row)) row.remove();
     });
+    visibleRows.forEach(row => pastEvents.appendChild(row));
     pastEmpty.hidden = pastEvents.querySelector('[data-event-row]') !== null;
   };
 
