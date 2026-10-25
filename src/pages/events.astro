@@ -716,6 +716,8 @@ const eventBannerImages = [
     .sort((first, second) => first - second)[0];
 
   if (nextEventEnd) {
-    window.setTimeout(() => window.location.reload(), nextEventEnd - Date.now() + 100);
+    const reloadDelay = nextEventEnd - Date.now() + 100;
+    const maxTimeoutDelay = 2_147_000_000;
+    window.setTimeout(() => window.location.reload(), Math.min(reloadDelay, maxTimeoutDelay));
   }
 </script>
