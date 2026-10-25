@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-
 const base = import.meta.env.BASE_URL;
 const links = [
   { href: base,           label: 'Home' },
@@ -8,7 +6,6 @@ const links = [
   { href: `${base}projects`,   label: 'Projects' },
   { href: `${base}events`,     label: 'Events' },
   { href: `${base}gallery`,    label: 'Gallery' },
-  { href: `${base}faq`,        label: 'FAQ' },
   { href: `${base}team`,       label: 'Contact' },
 ];
 
@@ -25,8 +22,10 @@ const isActiveLink = (href: string, label: string) => {
 <nav class="nav">
   <div class="nav-inner container">
     <a href={base} class="nav-logo">
-      <Image
+      <img
         src={`${base}images/optimized/Metal_Logo.webp`}
+        srcset={`${base}images/optimized/Metal_Logo-400.webp 400w, ${base}images/optimized/Metal_Logo-600.webp 600w, ${base}images/optimized/Metal_Logo.webp 972w`}
+        sizes="(max-width: 700px) 152px, 252px"
         alt="UC Davis Robotics Club"
         class="nav-logo-img"
         width="972"

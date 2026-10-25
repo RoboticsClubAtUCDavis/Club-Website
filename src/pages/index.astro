@@ -56,20 +56,56 @@ meetingCalendarUrl.searchParams.set('location', 'Teaching and Learning Complex, 
         </div>
       </div>
       <div class="hero-cad-image" data-cad-image role="button" tabindex="0" aria-label="Drive Patty combat robot">
-        <img src={`${base}images/optimized/Patty_CAD_Colored.webp`} alt="Patty combat robot CAD design" width="900" height="677" loading="lazy" decoding="async" />
+        <img
+          src={`${base}images/optimized/Patty_CAD_Colored.webp`}
+          srcset={`${base}images/optimized/Patty_CAD_Colored-400.webp 400w, ${base}images/optimized/Patty_CAD_Colored-800.webp 800w, ${base}images/optimized/Patty_CAD_Colored.webp 900w`}
+          sizes="(max-width: 640px) 80vw, (max-width: 1000px) 45vw, 500px"
+          alt="Patty combat robot CAD design"
+          width="900"
+          height="677"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
 
     <div class="hero-img-grid container">
       <div class="hero-img" style="height:320px;">
-        <img src={`${base}images/optimized/Club_Robot.webp`} alt="UC Davis Robotics Club robot" width="1000" height="750" loading="lazy" decoding="async" />
+        <img
+          src={`${base}images/optimized/Club_Robot.webp`}
+          srcset={`${base}images/optimized/Club_Robot-400.webp 400w, ${base}images/optimized/Club_Robot-800.webp 800w, ${base}images/optimized/Club_Robot.webp 1000w`}
+          sizes="(max-width: 640px) 50vw, (max-width: 1000px) 45vw, 540px"
+          alt="UC Davis Robotics Club robot"
+          width="1000"
+          height="750"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div class="hero-img-col">
         <div class="hero-img" style="height:152px;">
-          <img src={`${base}images/optimized/Mini_Bot_Hero.webp`} alt="Workshop activity" width="806" height="605" loading="lazy" decoding="async" />
+          <img
+            src={`${base}images/optimized/Mini_Bot_Hero.webp`}
+            srcset={`${base}images/optimized/Mini_Bot_Hero-400.webp 400w, ${base}images/optimized/Mini_Bot_Hero-640.webp 640w, ${base}images/optimized/Mini_Bot_Hero.webp 806w`}
+            sizes="(max-width: 640px) 45vw, (max-width: 1000px) 45vw, 540px"
+            alt="Workshop activity"
+            width="806"
+            height="605"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
         <div class="hero-img" style="height:152px;">
-          <img src={`${base}images/optimized/First_Meeting_Hero.webp`} alt="Competition drone" width="1200" height="675" loading="lazy" decoding="async" />
+          <img
+            src={`${base}images/optimized/First_Meeting_Hero.webp`}
+            srcset={`${base}images/optimized/First_Meeting_Hero-400.webp 400w, ${base}images/optimized/First_Meeting_Hero-800.webp 800w, ${base}images/optimized/First_Meeting_Hero.webp 1200w`}
+            sizes="(max-width: 640px) 45vw, (max-width: 1000px) 45vw, 540px"
+            alt="Competition drone"
+            width="1200"
+            height="675"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -82,13 +118,22 @@ meetingCalendarUrl.searchParams.set('location', 'Teaching and Learning Complex, 
       <h2 class="section-title">Featured Projects</h2>
       <div class="projects-grid">
         {[
-          { title: 'Combat Robotics', tag: 'Combat', desc: 'Student-built combat robot platform designed for fast iteration, robust drivetrain design, and high-impact demonstrations.', image: `${base}images/optimized/Patty_Antweight.webp`, width: 1000, height: 882 },
-          { title: 'Drone - DJI Matrice 100', tag: 'Aerial', desc: 'Heavy-lift drone serving as an engineering and development platform.', image: `${base}images/optimized/DJI_Matrice_100.webp`, width: 1200, height: 670 },
-          { title: 'Mini Bot Line Follower', tag: 'Controls', desc: 'Beginner-friendly line-following robot used to teach sensors, control loops, and embedded programming.', image: `${base}images/optimized/Mini_Bot_Line_Follower.webp`, width: 806, height: 605 },
+          { title: 'Combat Robotics', tag: 'Combat', desc: 'Student-built combat robot platform designed for fast iteration, robust drivetrain design, and high-impact demonstrations.', image: `${base}images/optimized/Patty_Antweight.webp`, srcset: `${base}images/optimized/Patty_Antweight-400.webp 400w, ${base}images/optimized/Patty_Antweight-800.webp 800w, ${base}images/optimized/Patty_Antweight.webp 1000w`, width: 1000, height: 882 },
+          { title: 'Drone - DJI Matrice 100', tag: 'Aerial', desc: 'Heavy-lift drone serving as an engineering and development platform.', image: `${base}images/optimized/DJI_Matrice_100.webp`, srcset: `${base}images/optimized/DJI_Matrice_100-400.webp 400w, ${base}images/optimized/DJI_Matrice_100-800.webp 800w, ${base}images/optimized/DJI_Matrice_100.webp 1200w`, width: 1200, height: 670 },
+          { title: 'Mini Bot Line Follower', tag: 'Controls', desc: 'Beginner-friendly line-following robot used to teach sensors, control loops, and embedded programming.', image: `${base}images/optimized/Mini_Bot_Line_Follower.webp`, srcset: `${base}images/optimized/Mini_Bot_Line_Follower-400.webp 400w, ${base}images/optimized/Mini_Bot_Line_Follower-640.webp 640w, ${base}images/optimized/Mini_Bot_Line_Follower.webp 806w`, width: 806, height: 605 },
         ].map(p => (
           <a href={`${base}projects`} class="project-card">
             <div class="project-img" style="height:200px;">
-              <img src={p.image} alt={p.title} width={p.width} height={p.height} loading="lazy" decoding="async" />
+              <img
+                src={p.image}
+                srcset={p.srcset}
+                sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 900px) calc(50vw - 3rem), 360px"
+                alt={p.title}
+                width={p.width}
+                height={p.height}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div class="project-info">
               <span class="project-tag">{p.tag}</span>

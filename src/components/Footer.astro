@@ -9,6 +9,8 @@ const base = import.meta.env.BASE_URL;
           <img
             class="footer-logo"
             src={`${base}images/optimized/Robot_Arm_Logo.webp`}
+            srcset={`${base}images/optimized/Robot_Arm_Logo-200.webp 200w, ${base}images/optimized/Robot_Arm_Logo-320.webp 320w, ${base}images/optimized/Robot_Arm_Logo.webp 400w`}
+            sizes="(max-width: 640px) 147px, 147px"
             alt="Davis Robotics Club logo"
             width="400"
             height="400"
@@ -28,7 +30,6 @@ const base = import.meta.env.BASE_URL;
         <p class="footer-col-title">Club</p>
         <a href={`${base}about`}>About</a>
         <a href="https://forms.gle/HzaunJJEQ2F9HUbk8" target="_blank" rel="noopener noreferrer">Join Us</a>
-        <a href={`${base}faq`}>FAQ</a>
       </div>
       <div class="footer-col">
         <p class="footer-col-title">Work</p>
@@ -243,13 +244,20 @@ const base = import.meta.env.BASE_URL;
   min-width: min(100%, 300px);
 }
 
-.footer-bottom a { color: var(--gold); }
+.footer-bottom a {
+  color: var(--gold);
+}
 .footer-bottom a:hover { color: var(--text); }
 
 @media (max-width: 640px) {
   .footer-sub,
   .footer-bottom {
     color: #A3A6B0;
+  }
+
+  .footer-bottom a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 }
 </style>
