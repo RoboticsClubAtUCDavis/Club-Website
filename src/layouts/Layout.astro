@@ -67,14 +67,14 @@ const organizationSchema = {
   <body>
     <div class="site-gears" aria-hidden="true">
       <div class="gear-rail gear-rail-left">
-        <img class="gear gear-left-large" src={`${base}images/Gear.png`} alt="" />
-        <img class="gear gear-left-small" src={`${base}images/Gear.png`} alt="" />
-        <img class="gear gear-left-middle" src={`${base}images/Gear.png`} alt="" />
+        <img class="gear gear-left-large" data-desktop-src={`${base}images/optimized/Gear.webp`} width="944" height="944" alt="" />
+        <img class="gear gear-left-small" data-desktop-src={`${base}images/optimized/Gear.webp`} width="944" height="944" alt="" />
+        <img class="gear gear-left-middle" data-desktop-src={`${base}images/optimized/Gear.webp`} width="944" height="944" alt="" />
       </div>
       <div class="gear-rail gear-rail-right">
-        <img class="gear gear-right-small" src={`${base}images/Gear.png`} alt="" />
-        <img class="gear gear-right-large" src={`${base}images/Gear.png`} alt="" />
-        <img class="gear gear-right-middle" src={`${base}images/Gear.png`} alt="" />
+        <img class="gear gear-right-small" data-desktop-src={`${base}images/optimized/Gear.webp`} width="944" height="944" alt="" />
+        <img class="gear gear-right-large" data-desktop-src={`${base}images/optimized/Gear.webp`} width="944" height="944" alt="" />
+        <img class="gear gear-right-middle" data-desktop-src={`${base}images/optimized/Gear.webp`} width="944" height="944" alt="" />
       </div>
     </div>
     <Nav />
@@ -83,6 +83,21 @@ const organizationSchema = {
     </main>
     <Footer />
     <script>
+      const desktopGears = document.querySelectorAll<HTMLImageElement>('.gear[data-desktop-src]');
+      const desktopGearMedia = window.matchMedia('(min-width: 641px)');
+      const syncDesktopGears = () => {
+        desktopGears.forEach(gear => {
+          if (desktopGearMedia.matches) {
+            gear.src = gear.dataset.desktopSrc ?? '';
+          } else {
+            gear.removeAttribute('src');
+          }
+        });
+      };
+
+      syncDesktopGears();
+      desktopGearMedia.addEventListener('change', syncDesktopGears);
+
       const gearRails = document.querySelectorAll<HTMLElement>('.gear-rail');
 
       gearRails.forEach(rail => {
